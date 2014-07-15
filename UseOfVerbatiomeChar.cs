@@ -1,7 +1,7 @@
 //In this program we will learn about the @ verbatime
 
 
-namespace UseOfVerbatim
+namespace UseOfVerbatime
 {
     class UseOfVerbatime
     {
