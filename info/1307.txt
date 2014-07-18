@@ -1,0 +1,149 @@
+C# Language basics
+============================================
+
+ 1. Local variables
+
+    Variables created inside the method are called local variable and     they are not initialized implicitly (ie. they don't have value).
+
+     Ex:
+
+     class Test
+     {
+       static void Main()
+        {
+           int no;
+           System.Console.WriteLine(no); <--- Compiler error - variable                                           'no'
+        }                                 is not initialized/assigned.
+      }
+     
+     So, before we use local variable initialize it.
+
+  2. Literals -- You can use literal to assign or designate value of
+     simple types (except DateTime) and a reference type.
+
+
+     1. Integer literal --  Value without decimal place and it
+			    can express decimal, hexadecimal, octal.
+
+	e.g   byte b = 10;
+              int no = 0xF; //Hex
+              int no1 = 012; //Oct
+
+     2. Long Integer literal -- Use "l" or "L" suffix to integer 			literal.
+
+	 long amount = 10L;
+
+
+          Note that the C# compiler shows an error if value of integer
+	  literal exceed the range of target type.
+
+		e.g   byte n = 256; //error because byte size is 1 byte
+					and you can store 0 to 255 
+					value.
+
+          CLR, trucate the result (arithmetic) if it exceed the range
+          of type.
+
+		e.g
+                    byte n = 200;
+                    n =  n * 2; //error -- expression is int type.
+
+                    n= n * n;  // error -- any arithmetic operation 				between int family will return "int"
+				result.
+
+
+          Another example,
+
+                   long n = 200000L * 200000L;  //OK but
+						//remove "L" and see
+						//what happen?
+
+          You can use "checked" or "unchecked" keywords to define
+          arithmetic expression for "Integer family" members.
+
+           In checked mode, exception will be raised by compiler if
+	   overflow/underflow occurs (compiler optimization).
+
+           In unchecked mode, C# compiler ignore the type boundary 		(range).
+
+           
+Ex:
+
+class Test
+{
+   static void Main()
+    {
+
+      unchecked
+       {
+           long no = 200000 * 200000; 
+            System.Console.WriteLine(no); <-- display truncated result
+         }                                           (errornious)
+     }
+}     
+
+
+  Also try,
+
+     checked
+     {
+       //code here
+      }
+  
+  Note that the default "mode" is checked and you can use   checked/unchecked mode to examine "integer" expressions only.
+
+
+  3. float literal -- Use "f" or "F" suffix
+  4. double literal --- Default type is double so leave number as it 			is.
+  5. decimal literal -- Use "m" or "M" suffix.
+
+   6. char literal  -- use ANSI or UTF charsequence and embed it with 			single quote.
+
+			'A'  <--- ANSI charset
+
+			'\u0000' <--- \u + 4 hexadecimal char
+
+  7. boolean literal - Use true or false reserved word. Do not use 0 or 				1 value because it has no significant. 				The selection statements, boolean 				expression and control statement uses 							bool expression only.   
+
+  8. string literal - Value surrounded by double quotes.
+
+      "Hello" --- The C# compiler implicitly created an object of                   System.String class for each string literal.
+
+      You can use @"" verbatim (@) operator to escape (whitespace ) the 	string.                                        
+
+
+Ex:1
+
+class Test
+{
+    static void Main()
+    {
+        char ch = '\u0910';
+        System.Console.WriteLine(ch);
+
+        string name = "\u0910\u0923\u0950";
+        System.Console.WriteLine(name);
+    }
+} 
+
+              
+Ex:2 Escape chars
+
+Code in Main:
+
+        string path = "c:\test\new folder";
+        System.Console.WriteLine(path);
+
+        //Escape the \ (backslash) char
+        path = "c:\\test\\new folder";
+        System.Console.WriteLine(path);
+
+        //Or use @ verbatim operator to escape
+        path = @"c:\test\new folder";
+        System.Console.WriteLine(path);
+       
+Note: You can use "forward slash" in your path because OS can uses both backslash and forward slashes.
+
+         c:/test/new folder  
+
+
