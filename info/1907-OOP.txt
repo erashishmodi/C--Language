@@ -1,0 +1,477 @@
+ Safe parse using SimpleType.TryParse methods
+ ---------------------------------------------
+
+  The "Parse" method throws an exception if data-format is   illegal/invalid so you have to wrap your code in try..catch.
+
+  You can choose TryParse() which handle exception implicitly and
+  returns true if parse success, returns false otherwise.
+
+
+  Syntax:
+
+   bool SimpleType.TryParse("string-data", out SimpleTypeVar)
+
+  e.g (code in Main)
+
+   string str = "10";
+   int no;
+
+    if(int.TryParse(str, out no))  
+         Console.WriteLine("Success : " + no);
+    else
+         Console.WriteLine("Failed");
+   e.g
+
+        var strDate = "12/31/2002 10:20:20 PM";
+        DateTime dt;
+        if (DateTime.TryParse(strDate, out dt))
+            Console.WriteLine(dt);
+        else
+            Console.WriteLine("Failed: " + dt);
+
+
+
+Design the class (new Type)
+--------------------------------------------------------------------
+Whenever you create a "TYPE" it will be a sub-class of System.Object.
+
+ We will follow standard naming conventions and following guideline
+ to define a class (minimum requirements).
+
+   1. All field including instance & static must be private
+   2. All methods which encapsulate "private" fields must be public.
+   3. Add appropriate number of constructors to initialize fields and
+      object specific initialization code.
+   4. Use "setter" and "getter" methods to set(store) and get(retrieve)
+      private fields data.
+   5. Constructors should be public. Constructors can be overloaded.
+      Name of constructors methods must match its class name and they
+      don't have return type.
+   
+Follow above mentioned guideline to construct a class using any programming language.
+
+
+Example:
+
+
+using System;
+
+public class Student
+{
+    //fields -- private
+    private int roll;
+    string name;
+
+    //public methods -- setter 
+    public void SetRoll(int v)
+    {
+        if (v >= 0 && v <= 100)
+            roll = v;
+    }
+    public void SetName(string v)
+    {
+        if (v == null)
+            return;
+        if (v.Length >= 0 && v.Length <= 30)
+            name = v;
+    }
+
+    //public -- getter
+    public int GetRoll() { return roll; }
+    public string GetName()
+    {
+        return name;
+    }
+    //constructor
+    public Student()
+    {
+        roll = 0;
+        //name = "" ; //Empty String
+        name = string.Empty;
+    }
+}
+class Test
+{
+    static void Main()
+    {
+        Student s = new Student();
+        Console.WriteLine(s.GetRoll() + " " + s.GetName().Length);
+        s.SetRoll(-10);
+        s.SetName("Mr. Rajendrakumar Shah");
+        Console.WriteLine(s.GetRoll() + " " + s.GetName());
+    }
+}
+  
+
+Property Method
+-----------------------------------------------------------
+In C# you can write your getter & setter methods differently via "Property Method" syntax.
+
+
+Syntax:
+
+ access_modifier TYPE  PropertyName
+ {
+   get
+      {
+         return something...;
+       }
+   set
+      {
+          ....
+       }
+   }
+
+ In above syntax,  "get" and "set" are called "accessor" block. The "get" block returns a value of TYPE specified in property definition.
+
+ The "set" block has automatic parameter variable called "value" of  TYPE specified in property def.
+
+ Property method uses = (assignment) operator to call "set" block and any other way  will call "get" block.
+
+Example:
+
+
+public class Student
+{
+    //fields -- private
+    private int _roll;
+    string _name;
+
+    //public methods -- setter 
+    public int Roll
+    {
+        set
+        {
+            //ToDo:: add validation
+            _roll = value;
+        }
+        get
+        {
+            return _roll;
+        }
+    }
+    public string Name
+    {
+        get
+        {
+            return _name;
+        }
+        set
+        {
+            //ToDo:: add validation
+            _name = value;
+        }
+    }
+     
+    //constructor
+    public  Student()
+    {
+        _roll = 0;
+        //name = "" ; //Empty String
+        _name = string.Empty;
+    }
+}
+
+class Test
+{
+    static void Main()
+    {
+        Student s = new Student();
+        s.Roll = 10;    //set
+        s.Name = "Raj"; //set
+
+        int k = s.Roll; //get
+        Console.WriteLine(s.Roll + " " + s.Name); //get
+    }
+}
+
+Object initialization using Properties
+-----------------------------------------------------------------
+
+ You can initialize fields via folowing syntax:
+
+
+  TypeName varName = new TypeName() { Property1 = Value1,....};
+  TypeName varName = new TypeName { Property1 = Value1,....};
+
+Example:
+
+public class Student 
+{
+  ... as per prev definition....
+}
+
+Code in Main:
+
+        Student s = new Student() {  Roll = 10, Name="Rajesh"};
+        Student t = new Student
+        {
+             Name="Manish",
+             Roll = 20
+        };
+        Console.WriteLine(s.Roll + " " + s.Name);
+        Console.WriteLine(t.Roll + " " + t.Name); 
+
+
+
+Property type
+-------------
+A property def must have either "get" or "set" or "both". If there is "get" then it is called "readonly". If it is only the "set" then it is called "writeonly".
+
+In C#, we can another type of property called "auto-implemented" property. In this appropach, the C# compiler implicitly create fields and property definition.
+
+Syntax:
+
+ access  TYPE PropertyName {get;set;}
+
+Example:
+
+public class Point
+{
+   public int X {get;set;}
+   public int Y {get;set;}
+}
+public class Student 
+{
+   public int Roll {get;set;}
+   public string Name {get;set;}
+}
+
+code in Main:
+
+  Point pt = new Point { X = 10, Y =20 };
+  Student st = new Student { Roll = 1, Name = "raj"};
+  Console.WriteLine(pt.X + " " + pt.Y);
+  Console.WriteLine(st.Rol + " " + st.Name);
+
+
+Example: Computed properties
+
+public class Student
+{
+    public int Roll { get; set; }
+    public string Name { get; set; }
+    public int English { get; set; }
+    public int Science { get; set; }
+    public int Maths { get; set; }
+
+    //Comuputed properties
+    public int Total
+    {
+        get
+        {
+            return Maths + English + Science;
+        }
+    }
+    public double Percent
+    {
+        get
+        {
+            return Total / 3.0;
+        }
+    }
+    public string Grade { get
+        {
+            double p = Percent;
+            if (p >= 70) return "A";
+            if (p >= 60) return "B";
+            return "C";
+        }
+    }
+    public void Print()
+    {
+        Console.WriteLine("Roll......: " + Roll);
+        Console.WriteLine("Name......: " + Name);
+        Console.WriteLine("English...: " + English);
+        Console.WriteLine("Maths.....: " + Maths);
+        Console.WriteLine("Science...: " + Science);
+        Console.WriteLine("Total.....: " + Total);
+        Console.WriteLine("Percent...: " + Percent);
+        Console.WriteLine("Grade.....: " + Grade);
+    }
+}
+class Test
+{
+    static void Main()
+    {
+
+        Student st = new Student
+        {
+            Roll = 1,
+            Name = "Raj",
+            English = 90,
+            Maths = 87,
+            Science = 98
+        };
+
+        Console.WriteLine(st.Total + " " + st.Percent + " " + st.Grade);
+        st.Name = "Raj Kumar";
+        st.Print();
+    }
+}
+
+
+
+Anonymous class and properties
+---------------------------------------
+Syntax:
+
+  var  refVar = new 
+   {
+     Property1 = value1,
+     Property2 = value2,
+     ....
+    };  <--- Terminate it
+
+
+ Above syntax creates an object of "anonymous - nameless sub-class of  object" and allows you to set properties.
+
+e.g 
+
+var circle = new
+        {
+            X = 10,
+            Y = 20,
+            Radius = 90.45
+        };
+
+        Console.WriteLine(circle.X + " " + circle.Y + " " 
+                                + circle.Radius);
+
+Note: Anonymous object must be used inside the method/function.
+
+
+
+Constructors and this keyword
+------------------------------
+  "this" keyword holds memory reference of implicitly passed object   into instance methods. "this" keyword cannot used in "static"    methods.
+
+  In instance methods, we can use "this" keyword to qualify a field as    a member of "instance" whose reference is stored into "this".
+
+Example:
+
+public class Student
+{
+   private int roll;
+   private string name;
+
+   public Student() // No argument constructor
+   {
+     roll=0;
+     name=string.Empty;
+    }
+    public Student(int roll,String name) // parameterized constructor
+    {
+           roll;  //this.roll is a field where as 
+         this.name = name;  //roll is method parameter variable
+     }
+    public void setStudent(int roll, string name)
+    {
+         this.roll = roll; this.name = name;
+     }
+   ......
+}
+  
+
+Second use of "this" keyword is to call/invoke constructor of the same class.
+
+Syntax:
+
+  public ConstructorMethod([param]) : this([param]) {}
+
+Example:
+
+public class Student
+{
+  .......
+  .......
+   // #1
+   public Student() : this(0, "")      //Invoke the #2 
+    {
+    }
+   //#2
+    public Student(int roll,string name)
+    {
+       if(roll>=0 && roll<=100)
+           this.roll = roll;
+       if(name == null && (name.Length>=0 && name.Length<=50)
+           this.name = name;
+    }
+    //#3
+    public Student( string name,int roll,int age) 
+                     : this(roll,name) //Invoke the #2
+    {
+   this.age = age;
+    }
+  .....
+  .....
+}
+
+Code in Main:
+
+   Student s = new Student(10,"A");
+   Student t = new Student("B",20);
+   Student u = new Student();
+
+HomeWork:
+
+--------------
+ Category
+--------------
+ - id
+ - name
+ 
+ + create()
+ + get()/set()
+
+
+--------------
+ Product
+--------------
+  - id
+  - name
+  - category : Category
+  - rate : decimal
+  - qty  : decimal
+ 
+ + create
+ + get/set
+ + getAmount
+
+
+Example:
+
+Address
+--------
+ - city : string
+ - pin  : int
+ 
+ + create
+ + get/set
+
+Student
+------------
+ -roll : int
+ -name : string
+ -localAddress: Address
+ -postlAddress: Address
+
+ +Create
+ +get/set
+
+
+
+Example:
+
+ Question
+ ----------------------
+  - questionText      : string
+  - answer1 : string
+  - answer2 : string
+  - answer3 : string
+  - correctAnswer : int (1 or 2 or 3)
+  - userAnswer    : int 
+
+  +create()
+  +get/set 
+  +isCorrect() : bool
