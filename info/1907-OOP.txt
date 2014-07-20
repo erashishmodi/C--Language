@@ -811,3 +811,33 @@ class SubjectExam
    private Exam    _exam;
    priate  int     _totalMarks;
 }
+
+
+Linked List
+============
+using System;
+
+class Student
+{
+    public int Roll { get; set; }
+    public string Name { get; set; }
+    public Student Next { get; set; }
+}
+
+class Test
+{
+    static void Main()
+    {
+        Student a = new Student();
+        a.Roll = 10;
+        a.Name = "Raj";
+        a.Next = new Student() { Roll = 20, Name = "Mohan" };
+        a.Next.Next = new Student() { Roll = 30, Name = "Rakesh" };
+
+        do
+        {
+            Console.WriteLine(a.Roll + " " + a.Name);
+            a = a.Next;
+        } while (a != null);
+    }
+}

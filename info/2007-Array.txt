@@ -1,0 +1,229 @@
+Arrays
+====================================================================
+
+ Array in .net is a sub-class of System.Array class (and System.Array  is sub-class of System.Object).
+
+ That's why "array" is called "reference types".
+
+ Arrays are used (and most suitable) to store fixed lenght of  data/value/references. So wheneve you've fixed number of elements then represent them via "array" but when count of elements is not known then do not use arrays. Use "data-structure" or "collection" classes.
+
+
+ Declaration Syntax:
+
+     datatype []varName;    //one dimensional
+     datatype [,]varName;   //two dimensional
+     datatype [,,]varName;  //three dim and so on
+
+  You can create array of arrays using following syntax :
+
+      datatype [][]varName;  //Nested or Jagged array
+                             //array of one dim arrays
+      datatype [][,]varName; //array of two dim arrays
+
+Note: Subscript [] operator must be empty at the time of delcaration and must be placed before variable name.
+
+
+ Syntax to create array object:
+
+      datatype []varName = new datatype[size_in_int];
+
+   OR
+
+       datatype []varName;
+       varName = new datatype[size_in_int];
+
+   OR Array initialization syntax
+     
+      datatype []varName = { value1,value2,value3,...};
+  
+   OR
+      datatype []varName = new datatype[]{ value1,value2,value3,...};
+   OR
+      datatype []varName;
+      varName = new datatype[]{ value1,value2,value3,...};
+
+
+
+System.Array properties and methods
+--------------------------------------
+
+ 1. Length -- It returns count of elements.
+
+    Ex:1
+
+        int[] nos; // "nos" is ref var of  System.Array
+
+        nos = new int[3]; // Create an object of System.Array and
+                          //this object holds three int variables.
+
+        Console.WriteLine(nos.Length);
+
+    Ex:2
+
+        int [,]nos = new int[3,5];
+        Console.WriteLine(nos.Length); // 15 elements
+
+ 2. Rank  -- It returns 1 if array is one-dim,
+                        2 if array is two-dim and so on
+
+        string []cities = new string[4];
+        int [,]mat = new int[4,3];
+        Console.WriteLie(cities.Rank + " " + mat.Rank); //1 2
+
+ 3. GetLowerBound(int dim)
+ 4. GetUpperBound(int dim) -- Returns lower and upper bound of given
+			      dimension.
+
+ 	Note: Lower bound is 0 in C# language.
+              Upper bound is dim Length-1 in C#
+
+ All "simple" type variables are initialized with zero-based value  whereas reference variables with null.
+
+Traverse arrays
+---------------
+You can choose simple for,while and do while loop:
+
+  Code in main:
+
+        int[] nos = new int[3];
+        for (int i = 0; i <= nos.GetUpperBound(0); i++)
+        {
+            Console.WriteLine(nos[i]);
+        }
+        int[,] mat = new int[3, 5];
+        for (int i = 0; i <= mat.GetUpperBound(0); i++)
+        {
+            for (int j = 0; j <= mat.GetUpperBound(1); j++)
+            {
+                Console.Write("  " + mat[i, j]);
+            }
+            Console.WriteLine();
+        }
+
+The for in loop (or for each loop) -- This loop uses "IEnumerable" object to be traversed via following syntax. System.Array class is also
+ IEnumerable. [We will discuss IEnumerable in later session].
+   
+  foreach(datatype varName in IEnumerableObject)
+   {
+    ///
+   }
+
+Ex:
+
+        int[] nos = { 10, 20, 30, 40 }; //Array initializer
+
+        int[,] mat = 
+        {
+            {1,2,3},
+            {2,3,4},
+            {0,1,2}
+        };
+
+        foreach (int n in nos)
+        {
+            Console.WriteLine(n);
+        }
+        foreach (var n in mat)
+        {
+            Console.WriteLine(n);
+        }
+
+Array.Sort, Array.Reverse, Array.BinarySearch methods -- These methods works with "on-dim" arrays.
+
+  int []nos = {10,-1,23,2};
+  Array.Sort(nos);
+  foreach(var n in nos)
+     Console.WriteLine(n);
+
+
+Array of objects
+---------------------------------
+
+Program to represent objects of five students:
+
+  //Declare array
+
+  Student []students;
+
+  //Create array object
+
+  students = new Student[5]; // will create five reference variables
+
+  //Create five student objects
+
+  students[0] = new Student(){ Roll = 1, Name = "A"};
+  students[4] = new Student();
+  students[2] = new Student(){ Roll = 2, Name = "B"};
+
+  //Traverse students
+  foreach(var s in students) 
+  {
+     if(s!=null)
+      {
+       Console.WriteLine(s.Roll + " " + s.Name);
+       }
+   }
+
+
+Nested arrays
+=====================================
+
+  //array of three one-dim
+
+  int [][]nos; //declaration
+
+  //create first (top-level) array
+
+   nos = new int[3][];
+
+  //create three (nested) arrays 
+
+  nos[0] = new int[5];
+  nos[1] = new int[]{22,33,44,55,66};
+  nos[2] = new int[2];
+  
+  //traverse
+
+  foreach(int []nested in nos)
+   {
+       foreach(int n in nested) 
+         {
+            Console.Write("  " + n);
+          }
+          Console.WriteLine();
+     }
+
+  
+
+One dim array which represent two-dim arrays.
+----------------------------------------------
+        int[][,] nos; //declaration
+
+        //create first (top-level) array
+
+        nos = new int[3][,];
+
+        //create three (nested) arrays 
+
+        nos[0] = new int[5,4];
+        nos[1] = new int[,] { {22, 33}, {44, 55}, {66,23} };
+        nos[2] = new int[2,10];
+
+        //traverse
+
+        foreach (int[,] nested in nos)
+        {
+            for (int i = 0; i <= nested.GetUpperBound(0); i++)
+            {
+                for (int j = 0; j <= nested.GetUpperBound(1); j++)
+                {
+                    Console.Write(" " + nested[i,j]);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+    }
+
+  
+  
