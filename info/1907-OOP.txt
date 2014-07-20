@@ -475,3 +475,339 @@ Example:
   +create()
   +get/set 
   +isCorrect() : bool
+
+
+
+Example: Category and Product classes [ Composition]
+----------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace app1
+{
+    public class Category
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class Product
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public double Rate { get; set; }
+        public double Qty { get; set; }
+        public Category Category { get; set; }
+
+        public Product()
+        {
+            Category = new Category();
+        }
+        public double Amount { get { return Qty * Rate; } }
+    }
+    class Test
+    {
+        //Test-3
+        static void Main()
+        {
+            Category handloom = new Category() { Name="Handllom" };
+            Category pencil = new Category() { Name = "Pencil" };
+
+            Product p = new Product() { ID = 10, Name = "Navneet HB", Qty = 12, Rate = 3, Category = pencil };
+            Product t = new Product() { ID = 10, Name = "Natraj HB", Qty = 12, Rate = 3.5, Category = pencil };
+            Console.WriteLine(p.ID + " " + p.Name + " " + p.Qty + " " + p.Rate + " " + p.Amount + " " + p.Category.Name);
+            Console.WriteLine(t.ID + " " + t.Name + " " + t.Qty + " " + t.Rate + " " + t.Amount + " " + t.Category.Name);
+        }
+        //Test-2
+        static void Main2()
+        {
+            Product p = new Product
+            {
+                ID = 10,
+                Name = "Ray",
+                Qty = 10,
+                Rate = 7,
+                Category = new Category() { Name="Handloom" }
+            };
+             
+
+            Console.WriteLine(p.ID + " " + p.Name + " " + p.Qty + " " + p.Rate + " " + p.Amount + " " + p.Category.Name);
+        }
+        //Test-1
+        static void Main1()
+        {
+            Product p = new Product();
+            p.ID = 10;
+            p.Name = "Raynold";
+            p.Rate = 5.5;
+            p.Qty = 10;
+            p.Category.ID = 1;
+            p.Category.Name = "Pen";
+
+            Console.WriteLine(p.ID + " " + p.Name + " " + p.Qty + " " + p.Rate + " " + p.Amount + " " + p.Category.Name );
+        }
+    }
+}
+
+
+Example: Address & Student
+===================================================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace app2
+{
+    public class Address
+    {
+        public string City { get; set; }
+        public int Pin { get; set; }
+        public string Area { get; set; }
+    }
+
+    public class Student
+    {
+        int _roll;
+        public int Roll { get { return _roll; } set {
+            if (value >= 1 && value <= 100)
+                _roll = value;
+        } }
+        public string Name { get; set; }
+        public Address LocalAddress { get; set; }
+        public Address PostalAddress { get; set; }
+
+        public Student()
+        {
+            Name = string.Empty;
+            LocalAddress = new Address();
+            PostalAddress = new Address();
+        }
+   
+    }
+
+    class Test
+    {
+        static void Main()
+        {
+            test3();
+        }
+        //Test3
+        static void test3()
+        {
+            Student s = new Student
+            {
+                Roll = 1,
+                Name = "Mohan",
+                PostalAddress = new Address() { Area = "St.Road", City = "Patan", Pin = 3333 },
+                LocalAddress = new Address() { Pin = 2000, Area = "Hos. Road", City = "Mehsana" }
+            };
+            Console.WriteLine(s.Roll + " " + s.Name + " " + s.LocalAddress.City + " " + s.LocalAddress.Pin + " " + s.PostalAddress.City + " " + s.PostalAddress.Pin);
+
+        }
+        //Test2
+        static void test2()
+        {
+            Address a = new Address() { Area = "A", City = "B", Pin = 3 };
+            Address b = new Address() { Area = "P", City = "Q", Pin = 3 };
+
+            Student s = new Student() { Roll = 1, Name = "Name1", LocalAddress = a, PostalAddress = b };
+            Console.WriteLine(s.Roll + " " + s.Name + " " + s.LocalAddress.City + " " + s.LocalAddress.Pin + " " + s.PostalAddress.City + " " + s.PostalAddress.Pin);
+        }
+
+        //Test1
+
+        static void test1()
+        {
+            Student s = new Student();
+            s.Roll = 10;
+            s.Name = "Rajesh";
+            s.LocalAddress.City = "Patan";
+            s.LocalAddress.Pin = 342222;
+            s.PostalAddress.City = "Mehsana";
+            s.PostalAddress.Pin = 433333;
+            s.PostalAddress.Area = "St. Road";
+            s.LocalAddress.Area = "Hos. Road";
+
+            Console.WriteLine(s.Roll + " " + s.Name + " " + s.LocalAddress.City + " " + s.LocalAddress.Pin + " " + s.PostalAddress.City + " " + s.PostalAddress.Pin) ;
+
+        }
+    }
+}
+
+
+Example:
+
+ class Column
+ {
+    private int _text;
+  }
+
+ class Row
+ {
+    private Column column1, column2, column3;
+ }
+ 
+
+Solution - 1
+--------------
+namespace app3
+{
+    public class Column
+    {
+        private int _text;
+        public int Text
+        {
+            get { return _text; }
+            set { _text = value; }
+        }
+    }
+    public class Row
+    {
+        private Column _column1, _column2, _column3;
+
+        public Column Column1 { get { return _column1; } set { _column1 = value; } }
+        public Column Column2 { get { return _column2; } set { _column2 = value; } }
+        public Column Column3 { get { return _column3; } set { _column3 = value; } }
+
+        public Row()
+        {
+            _column1 = new Column();
+            _column2 = new Column();
+            _column3 = new Column();
+        }
+
+    }
+    class Test
+    {
+        static void Main()
+        {
+            Row r = new Row();
+
+            Console.WriteLine(r.Column1 == null);
+            Console.WriteLine(r.Column2 == null);
+            Console.WriteLine(r.Column3 == null);
+
+            r.Column1.Text = 10;
+            r.Column2.Text = 20;
+            r.Column3.Text = 30;
+
+            Console.WriteLine(r.Column1.Text + " " + r.Column2.Text + " " + r.Column3.Text);
+        }
+    }
+}
+
+
+Solution - 2
+===============
+namespace app3
+{
+    public class Column
+    {
+        public int Text { get; set; }
+    }
+    public class Row
+    {
+        public Column Column1 { get; set; }
+        public Column Column2 { get; set; }
+        public Column Column3 { get; set; }
+        public Row()
+        {
+            Column1 = new Column();
+            Column2 = new Column();
+            Column3 = new Column();
+        }
+
+    }
+    class Test
+    {
+        static void Main()
+        {
+            Row r = new Row();
+
+            Console.WriteLine(r.Column1 == null);
+            Console.WriteLine(r.Column2 == null);
+            Console.WriteLine(r.Column3 == null);
+
+            r.Column1.Text = 10;
+            r.Column2.Text = 20;
+            r.Column3.Text = 30;
+
+            Console.WriteLine(r.Column1.Text + " " + r.Column2.Text + " " + r.Column3.Text);
+        }
+    }
+}
+
+Solution  - 3
+===============
+namespace app3
+{
+    public class Column
+    {
+        int _text;
+
+        public void SetText(int v) { _text = v; }
+        public int GetText() { return _text; }
+    }
+    public class Row
+    {
+        private Column _column1, _column2, _column3;
+
+        public Column GetColumn1() { return _column1; }
+        public Column GetColumn2() { return _column2; }
+        public Column GetColumn3() { return _column3; }
+
+        public void SetColumn1(Column v) { _column1 = v; }
+        public void SetColumn2(Column v) { _column2 = v; }
+        public void SetColumn3(Column v) { _column3 = v; }
+
+        public Row()
+        {
+            _column1 = new Column();
+            _column2 = new Column();
+            _column3 = new Column();
+        }
+
+    }
+    class Test
+    {
+        static void Main()
+        {
+            Row r = new Row();
+
+            r.GetColumn1().SetText(10);
+            r.GetColumn2().SetText(20);
+            r.GetColumn3().SetText(30);
+
+            Console.WriteLine(r.GetColumn1().GetText());
+            Console.WriteLine(r.GetColumn2().GetText());
+            Console.WriteLine(r.GetColumn3().GetText());
+        }
+    }
+}
+
+
+Example: 
+
+class Subject 
+{
+   private _name;
+}
+
+class Exam
+{
+   private _examDate;
+   private _examName;
+}
+
+class SubjectExam
+{
+   private Subject _subject;
+   private Exam    _exam;
+   priate  int     _totalMarks;
+}
