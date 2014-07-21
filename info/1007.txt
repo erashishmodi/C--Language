@@ -1,0 +1,104 @@
+4. Version & co-instance execution
+
+   CLR's code checking feature allow us to execute different versions
+    of a very same application "side-by-side".
+
+    CLR reads Type MetaData and uses version details of used types or
+    assemblies resources.
+
+5. Memory Management 
+
+    CLR memory managers are responsible to allocate memory. There are     two kind of memory regions to be allocated when your application
+    launched.
+
+    1. Static allocation - CLR allocate 1 MB fixed size also called        "Stack frame memory" for storing local vars, method calls, 	method parameters and return value.
+
+        Stack Frame memory is used / re-used by the CLR's memory         manager automatically.
+
+    2. Dynamic allocation - Memory manager allocate memory region when
+       user's (developer) request is assumed and that allocated region
+       whose size is dynamic (vary from 1 byte to 2 GB or more). This
+       dynamically allocated area is also called "an object" or "a        heap".
+
+       It is important to note here that memory manager allocate the        heap but they cannot release them (or disposed them).
+
+       There is another service of CLR which is continiously examined        heap(s) and if these heap(s) are not referenced by anyone else
+       then it is reclaimed (freed) -- This service is called "Garbage
+       Collector Service".
+
+       The GC - Garbage collector releases unreferenced heap. It is
+       important to note that the GC cannot reclaime the "Stack Frame".
+ 
+6. Type Safety Verification
+
+        Type checking is done at the time of compilation & execution. The CLS-compliant languages are statically-typed or strongly typed checked. It means each  data/value must have an appropriate type.
+
+          e.g float no = 10.10; <--- is an error. The type of 10.10 		value is double and hence it thorws an error.
+
+              float no = 10.10f; <-- valid
+
+
+7. Exception handling, & object profile
+
+  Exception service capture exception/error cause and throw them to   developers.  
+
+  Object profiling service help us to cast (dynamic) the objects   (especially when using inheritance relationship).
+
+8. COM Interoperability
+
+   This service is used to find appropriate runtime on target OS for    those programs which are not created using CLS-compliant languages.
+   
+   For example, VC++, VB6 and C++ programs can be hosted into .net framework but they are not managed (load,verify,compile, memory allocation/dealocation and so on) by the CLR instead they are handover the COM-InterOp service.
+
+    Ms-Office components (libraries) are COM type but they can be used
+    by .net apps because of COM-InterOp service.
+
+
+ Note: .Net app can host COMs and COM apps can host .net components.
+
+
+
+
+.Net Assemblies
+=======================================
+
+  You can produce/generate .net assemblies via "csc.exe - C# compiler" or "vbc.exe - VB.NET compiler" or a better way called MS-BUILD.
+
+
+  MS-BUILD tool collect, compile source code and produce single assembly as per MS-BUILD configuration. We will uses Visual Studio to learn more on build-configuration. 
+
+ As per assemblies are created and used, we can classify them as :
+
+    1. private assembly -- It is the assembly created whenever you 			   compiler/build your apps.  (Default is 			  "private" assembly").
+
+                         Private assemblies are private to the app in
+			 which they are used. In order to use "private"
+			 assemblies in your project, you first create
+			 a folder called "bin" and copy them in it.
+
+			 This is the ZERO-cost assembly deployment 
+			 strategy of .net framework.
+
+   2. public assembly -- It is the assembly which is shared by one or
+			 more applications in a machine once it is
+			 installed/deployed by the system 			 administrator.
+
+	Note: You've to plan to create "public" assembly.
+
+     Global/public/shared assemblies are installed (deployed) via
+     system administrator at GAC - Global Assembly Cache (Location      where all .net shared assemblies are deployed).
+
+
+ Visual Studio -- IDE (Integrated Development Environment)
+ ===================================
+
+  Visual Studio is licence product from Microsoft (.Net framework is   free and open-source).  With VS, we can develop apps (WinForm app,    Web app, phone app, service app) rapidly and it also provide number
+  of features including database designer, code designer, unit test   container, application debugging, source code repository and so on.
+
+  www.github.com -- provides public and private code-repository. 
+
+
+ 
+
+
+ 

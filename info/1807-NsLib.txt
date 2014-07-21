@@ -1,0 +1,32 @@
+Create "Library" project
+------------------------------------------------------------------
+
+ In order to use TYPES from one app to another app, we must have to create that first "app" as library (dll) assembly.
+
+
+Step-1: Create "ConsoleApp" 
+Step-2: File + Add + New + Library project (say MyLib)
+        In "MyLib" add TYPE def:
+
+namespace Ashish
+{
+    public class Emp
+    {
+    }
+    class Salary { }
+}
+
+Step-3: Build both apps (Build Solution)
+
+Step-4: Right mouse click at "References" on "consoleApp" 
+       + Add references 
+       + Click on "Solutions" (a dialog box with assemblies)
+       + [x] MyLib + OK
+
+  [Note: If the assembly you wish to use in your program is not
+         exists into solution then click on "Browse" button to
+         select it from your disk.]
+
+
+
+

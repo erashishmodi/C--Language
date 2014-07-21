@@ -1,0 +1,222 @@
+To specify value parameters use {n} syntax.
+
+  string.Format("I am {0} and I'm going to {1}","Raj","Mumbai");
+                       ^                          ^
+                       |                          |
+                    place holder                value/variable
+
+
+ The Format() return a string containg place holder data.
+
+Ex: (code in Main)
+
+ int no1 = 10, no2 = 20;
+
+ string str = string.Format("Addition of {0} and {1} is                                    {2}",no1,no2,no1+no2);
+ System.Console.WriteLine(str);
+
+
+ In this example, {0} is first parameter and it associate with first value. {1} is second parameter and it is associate with 2nd value and so on.
+
+
+ str = string.Format("{0} + {1} = {2}",no1,no2,no1+no2);
+ Console.WriteLine(str);
+ str = string.Format("{2} is sum of {1} and {0}",no1,no2,no1+no2);
+ Console.WriteLine(str);
+
+ str = string.Format("{0} {0} {0} makes {1}",no1,no1*3);
+ Console.WriteLine(str);
+
+ 
+
+ Determine the range of simple Types
+ ==============================================================
+
+   Use SimpleType.MinValue and SimpleType.MaxValue field
+
+ e.g
+
+   Console.WriteLine(int.MinValue + " " + int.MaxValue);
+
+
+ Convert simple type value to string
+ ===========================================================
+
+   Use SimpleType.ToString([format]) along with format string.
+
+Ex:
+
+        int no = 191020;
+        string str = no.ToString();
+        Console.WriteLine(str);
+        Console.WriteLine(no.ToString("N"));  // Number format
+        Console.WriteLine(no.ToString("C"));  // Currency format
+        Console.WriteLine(no.ToString("C3"));  // Currency format
+						// with 3 digit decimal
+         					//and similarly use N3
+						//for number format.
+
+    Note: Number and Currency format can apply with integer family,           float, double and decimal types.
+
+    Use #, 0, comma , period operator format number in your own way.
+
+       Console.WriteLine(no.ToString("00,00,00,00,000.00"));
+       Console.WriteLine(no.ToString("##,##,##,##,000.00"));
+
+ 
+ Convert string to simple type value
+ =================================================================
+  There are number of methods to do so but we will 
+  use SimpleType.Parse() method.
+
+  e.g
+
+   string str = "10";
+   int n = int.Parse(str);
+   double d = double.Parse(str);
+   Console.WriteLine(n + d);
+
+   Parse() method throws an exception if string contain invalid data.
+   
+   string str = "10a";
+   int n = int.Parse(str); <-- Error
+        
+
+ Working with DateTime
+ ================================================================
+
+ 1. System local date time
+
+     DateTime dt = DateTime.Now;
+     Console.WriteLine(dt);
+
+ 2. System UTC date time
+
+        dt = DateTime.UtcNow;
+        Console.WriteLine(dt);
+
+ 3. String to date
+
+     string str = "12/31/2002"; //mm-dd-yyy or mm/dd/yy
+     DateTime dt = DateTime.Parse(str);
+     Console.WriteLine(dt);
+
+     str = "12/31/2002 10:12:23 PM";
+     dt = DateTime.Parse(str);
+     Console.WriteLine(dt);
+
+ 4. Read Parts of DateTime - Day, Month , Date, Minuts etc.
+
+
+       DateTime birthDate = DateTime.Parse("12/05/1971 10:11:12 PM");
+
+        Console.WriteLine(birthDate.Day);
+        Console.WriteLine(birthDate.Date);
+        Console.WriteLine(birthDate);
+
+ 5. Add / subtract parts
+
+       Use AddXXXXX() methods to add/subtract parts.
+
+        DateTime dt = DateTime.Now;
+        dt = dt.AddDays(10);  // dt.AddDays(-10)
+        Console.WriteLine(dt);
+
+
+ 6. Format the DateTime using ToString() method
+    
+
+    Use following formats:
+
+        DateTime dt = DateTime.Now;
+        Console.WriteLine(dt.ToString("d"));
+        Console.WriteLine(dt.ToString("dd"));
+        Console.WriteLine(dt.ToString("ddd"));
+        Console.WriteLine(dt.ToString("dddd"));
+        Console.WriteLine(dt.ToString("M"));
+        Console.WriteLine(dt.ToString("MM"));
+        Console.WriteLine(dt.ToString("MMM"));
+        Console.WriteLine(dt.ToString("MMMM"));
+        Console.WriteLine(dt.ToString("y"));
+        Console.WriteLine(dt.ToString("yy"));
+        Console.WriteLine(dt.ToString("yyy"));
+        Console.WriteLine(dt.ToString("hh"));
+        Console.WriteLine(dt.ToString("HH"));
+        Console.WriteLine(dt.ToString("mm"));
+        Console.WriteLine(dt.ToString("ss"));
+        Console.WriteLine(dt.ToString("t"));
+        Console.WriteLine(dt.ToString("tt"));
+
+        Console.WriteLine(dt.ToString("dd-MM-yyyy HH:mm:ss tt"));
+
+
+
+ 7. TimeSpan structure to store date different.
+
+         DateTime birthDate = DateTime.Parse("12/05/1971 10:11:12 PM");
+         DateTime dt = DateTime.Now;
+
+         TimeSpan diff = dt - birthDate;
+
+         Console.WriteLine(diff.TotalDays);
+         Console.WriteLine(diff.TotalHours);
+         Console.WriteLine(diff.Days);
+
+
+Strings in .net framework
+===================================================================
+ There are two types of String classes in .net framework.
+
+  1. Immutable string  -- Sytem.String  -- An object whose content      cannot be changed once it is created is called "Immutable" or      "Readonly".
+
+      Note that all Primitive types immutable and here "System.String"
+      is also immutable.
+
+      For example,
+
+      string name = "Raj"; // an object will be created to store "Raj"
+
+      name = name + "Shah"; // a new object will be created to store
+				// "RajShah"
+
+      name = name + "Meh"; //again a new object will be created to 				// store "RajShahMeh"
+
+      .......
+      .......
+      and so on. In above example, when you trying to change the object       value then CLR allocate new memory an store changed content in       it. It means we cannnot use same object (memory) to update its             content.
+
+  2. Mutable string -- System.Text.StringBuilder class. Object of mutable string will be grow or shrink when you add/remove strings respectively.
+
+
+    e.g
+     System.Text.StringBuilder sb=new System.Text.StringBuilder();
+     sb.Append("Hello");
+     sb.Append("World");
+ 
+     In this example, strings will be inserted(or 	updated/replaced/deleted) into very same object.
+
+
+
+     Note: Always use StringBuilder when you wish            update/insert/add/delete the content of string            programmatically. Never use System.String class otherwise
+           your program/process will be slow down.
+
+
+
+Test case : Examine the time taken by immutable & mutable string to append "100000" items.
+
+System.Diagnostics.Stopwatch watch = new System.Diagnostics
+                                          .Stopwatch();
+       // string str = "";  
+        StringBuilder sb = new StringBuilder();
+        watch.Start();
+        for (int i = 1; i <= 100000; i++)
+        {
+            //str = str + i;
+            sb.Append(i);
+        }
+        watch.Stop();
+        Console.WriteLine("Total time : " 
+                    + watch.ElapsedMilliseconds + " ms.");
+
+Homework: Test the methods of System.String and StringBuilder
+

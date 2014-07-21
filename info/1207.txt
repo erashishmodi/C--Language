@@ -1,0 +1,152 @@
+5.  Press F5 ( Or Debug Menu + Start Debugging)
+
+    to execute the application code. The "Start Debugging" implicitly
+    build an assembly before it launch the program.
+
+    You can use Ctrl + F5 (Debug Menu + Start Without Debug) - In this
+    method, VS will not be involved to execute program code instead it
+    open your application  via command prompt.
+
+
+
+ In above class, we've an entry point method called "Main" and a class which contains an entry point method is called "Primary Class".
+
+
+ You can choose one of the following signature for entry point method:
+
+    1. static void Main()
+    2. static int Main()
+    3. static void Main(string []args) or String []args
+    4. static int Main(string []args)
+
+  [Note: No need to set access modifier for Main() method however you     can set public, internal or private]
+   
+
+ To write data onto console, we can use:
+
+     System.Console.Write()  -- Write data without adding newline
+     System.Console.WriteLine() -- Write data with newline (\n).
+
+  String vs string   and Object vs object
+  -----------------------------------------
+   In C#, two most commonly used classes namely System.String and    System.Object have aliases called "string" and "object".
+
+
+   So you can use either System.String or string (alias):
+ 
+        e.g
+
+           System.String firstName = "Rajesh";
+           string lastName = "Shah";
+
+
+    Similarly we can use "object" instead of "System.Object".
+
+
+
+Qualified Types
+=========================================
+Each & every CTS datatype must be fully qualified by its namespace(s).
+
+ for example, you cannot use "String" class name because it is not  fully qualified.
+
+Example:
+
+class Test
+{
+   static void Main()
+    {
+       System.Int32 pin = 384001;  // Or just use alias
+                                   //  int pin =384001;
+
+       System.String name = "Rajesh"; //Or string name = "Rajesh";
+
+       System.Console.WriteLine("Name : " + name);
+       System.Console.WriteLine("Pin  : " + pin);
+     }
+}
+
+Note that not all TYPES have aliaes so one must have to write full path of type - Namespace.SubNameSpace.TypeName. However, you can tell the C# language to qualify some types that you don;t want to write them in full path.
+
+  The "using" directive instructs the C# compiler to qualify the TYPES
+  implicitly of specified "namespace".
+
+  Syntax:
+
+   using NamespaceName;
+   using NamespaceName.SubNamespaceName;
+
+Example:
+
+class Test
+{
+  static void Main()
+  {
+      bool status = true;
+      int age = 20;
+      string name = "Raj";
+
+      Console.WriteLine("\nHello I'm " + name);
+      Console.WriteLine("\n\t\t and I'm " + 20 + " years old");
+      Console.WriteLine("\t\t\t and my marital status is : " + status);
+   }
+}
+
+Backslash / escape sequence chars can be used with string or char literal.
+ 
+
+Creating namespace and sub-namespace
+------------------------------------
+ Syntax:
+
+  namespace TopLevelNs
+  {
+
+   }
+
+  namespace TopLevelNs.SubNs
+   {
+
+   }
+
+  namespace TopLevelNs
+    {
+       namespace SubBs {}
+     }
+
+ Where each Top or subNs can have zero or more TYPES.
+
+
+To select "global" namespace entities
+=====================================
+
+  use "global" keyword to select global ns entities:
+
+e.g
+
+    global::EntityName
+
+namespace Avd 
+{
+  public class Work {}
+}
+public class Work  //Global Ns entity
+{
+}
+ 
+class Test
+{
+  static void Main()
+  {      
+    global::Work k;   
+    Avd.Work v;
+   }
+}
+
+
+import java.util.Date;
+
+
+
+java.util.Date a;
+java.util.Date b;

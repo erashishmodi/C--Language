@@ -1,0 +1,378 @@
+The class and object
+=====================================================================
+  
+ The "class" keyword is used to create a new TYPE which contains
+ two types of members:
+
+    1. static members and
+    2. instance members
+
+ The "static" modifier (keyword or storage modifier) is used to define
+ the static members.
+
+ You can use "static" for fields, methods or a class.
+
+ Static fields - Static fields are allocated once per application 		 domain and remain alive till an app domain is running.
+
+ Instance fields - Instance field (or members) are allocate when
+                   you create an object using "new" keyword and
+                   they are alive till you've an object reference
+		   of that particular object (heap).
+
+ Static members, if accessible, uses "ClassName.MemberName" syntax where as accesible instance members require an object reference to use instance members. 
+
+  
+ If static keyword is used with class definition then all members of  that class becomes "static" automatically.
+
+General Syntax :
+
+access_modifiers  storage_modifiers class ClassName : [SuperClass],                           [Interfaces......]
+ {
+   //members 
+   //1. static &
+   //2. instance
+ }
+
+
+ static & Instance field initialization
+ ---------------------------------------
+ All members of class will be initialize automatically. Value TYPES  fields have their zero-based initial value. 
+   
+  Int family fields initialized with 0
+  Float is with 0.0F
+  Double is 0.0
+  Decimal is 0.0m
+  DateTime is 1/1/1 0:0:0 
+  bool is false
+  char is '\u0000' (char null or '\0')
+
+  All reference TYPES fields are initialized with null.
+
+ Reference variable
+ ------------------------------------------
+ Reference variable is just like a pointer variable in C/C++ to store
+ memory address/reference or null.
+
+ The size of reference variable is 4 bytes (32 bits) or 8 bytes ( 64  bits architecture & OS).
+
+   Syntax to create reference variable:
+
+      ReferenceType varName;
+  
+       [Where ReferenceType can be class, interface, array, delegate]
+
+  Object 
+ ---------------------------------------------
+  The "new" keyword request the CLR's memory manager to allocate "heap"    as per instance fields in given type/class.
+
+
+   If allocation is success then memory manager returns memory reference of allocated "heap or object", throws MemoryException otherwise.
+
+   
+Example: Demonstrate the static & instance field usage
+
+public class Test
+{
+    public static int  no1; //Static member
+    public int no2;         //Instance member
+}
+
+public class MainApp
+{
+    static void Main()
+    {
+        //Access the static member
+        Console.WriteLine(Test.no1); //0
+
+        //Declare ref var
+        Test v1;
+        //Create heap/object of "Test" class
+        v1=new Test(); // Allocate memory for instance fields
+        Test v2 = new Test();
+
+        Console.WriteLine(v1.no2 + "  " + v2.no2); // 0   0
+        v1.no2 = 100;
+        v2.no2 = 200;
+        Test.no1 = 300;
+
+        Console.WriteLine(Test.no1 + " " + v1.no2 + " " + v2.no2);
+    }
+}
+
+
+Predit the output
+-------------------
+
+public class Test
+{
+    public int no1;         
+}
+public class MainApp
+{
+    static void Main()
+    {
+        /*
+           We've two reference variables namely "a" and "b"
+           which contain an object reference.
+
+         */
+        Test a = new Test(); 
+        Test b = a;  // copy the reference but not the referenced 
+                     // object.
+        a.no1 = 10;
+        b.no1 = 20;
+        Console.WriteLine(a.no1 + " " + b.no1); // 20 20
+    }
+}
+
+ 
+Method arguments 
+===============================================================
+
+Default parameters/arguments type of C# method is "called by value". That means when we call a method (or request a method), value of actual parameter copied to method's formal parameters and changes in formal parameter doesnot affect the actual argument.
+
+
+Example:
+
+public class Test
+{
+    public int no1;         
+}
+public class MainApp
+{
+    static void checkValue(int n)
+    {
+        n = 90;
+    }
+    static void Main()
+    {
+        int a = 1, n = 2;
+        checkValue(a);
+        checkValue(n);
+        Console.WriteLine(a + " " + n); //1 2   90 90
+
+        Test x = new Test();
+        x.no1 = 10;
+        checkRef(x);
+        Console.WriteLine(x.no1);
+    }
+    static void checkRef(Test y)
+    {
+        y.no1 = 90; // y = new Test(); 
+    }
+}
+
+The 'out' and 'ref' keywords
+-------------------------------------------------------------------
+ These two keywords are used to define method parameters as "reference or called by reference".
+
+
+ Syntax:
+
+   methodName(out Type param1, ref Type param2,...);
+
+ The reference parameter is an alias of actual parameter so changes  made via "alias" will impact/affect the content of actual parameter.
+
+ [Alias means second name of value/data]
+
+Ex:
+class Test
+{
+   static void check(out int a, int b)
+    {
+      a = 100;
+      b = 200;
+     }
+    static void Main()
+    {
+      int a=1,b=2;
+      check(out a, b);
+      Console.WriteLine(a + " " + b); // 100 2
+     }
+}
+
+
+Example: The 'out' keyword
+
+public class Test
+{
+    public int no1;         
+}
+public class MainApp
+{
+    static void checkValue(out int n)
+    {
+        n = 90;
+    }
+    static void Main()
+    {
+        int a = 1, n = 2;
+        checkValue(out a);
+        checkValue(out n);
+        Console.WriteLine(a + " " + n); //1 2   90 90
+
+        Test x = new Test();
+        x.no1 = 10;
+        checkRef(out x);
+        Console.WriteLine(x.no1);
+    }
+    static void checkRef(out Test y)
+    {
+       // y.no1 = 90;
+        y = new Test();
+        y.no1 = 9000;
+    }
+}
+
+Example: The 'ref' keyword
+
+public class Test
+{
+    public int no1;         
+}
+public class MainApp
+{
+    static void checkValue(ref int n)
+    {
+        n = 90;
+    }
+    static void Main()
+    {
+        int a = 1, n = 2;
+        checkValue(ref a);
+        checkValue(ref n);
+        Console.WriteLine(a + " " + n); //1 2   90 90
+
+        Test x = new Test();
+        x.no1 = 10;
+        checkRef(ref x);
+        Console.WriteLine(x.no1);
+    }
+    static void checkRef(ref Test y)
+    {
+       // y.no1 = 90;
+        y = new Test();
+        y.no1 = 9000;
+    }
+}
+Difference between ref & out
+------------------------------
+
+With out parameter, we cannot read parameter value and we must have to change/update it within the method body.
+
+With ref parameter, we can read ref parameter value and also may or may not update ref parameter.
+
+Example:
+
+public class MainApp
+{
+    static void one(out int n)
+    {
+       // Console.WriteLine(n); //Error
+        n = 0;
+    }
+    static void two(ref int n)
+    {
+        Console.WriteLine(n);  //Read
+        n++;                  //Change or update
+    }
+    static void Main()
+    {
+        int a = 10;
+        two(ref a);
+        Console.WriteLine(a);
+    }
+}
+
+
+The "var" keyword
+------------------------------------------------------------
+
+The var keyword is used to create local variables or block level variables.
+
+ Syntax:
+
+    var varName = value;
+
+    The C# compiler determine & set the type of variable based upon the
+    value's type.
+
+  e.g
+
+       var name = "Raj";   //string
+       var age = 10;       //int
+
+
+
+Ex:
+
+    static void Main()
+    {
+        var name = "Hello, C#";
+        for (var i = 1; i <= 10; i++)
+        {
+            Console.WriteLine(i);
+        }
+    }
+
+
+The "dynamic" keyword
+--------------------------
+
+ This keyword tells the CLR that user can set value or reference during  program execution so exclude it from Type checking.
+
+ Syntax:
+
+   dynamic var1,var2,...;
+
+     No need to initialize. Initialize or assign as per requirements.
+
+
+    dynamic info;
+
+    info = 10; // int
+    Console.WriteLine(info);
+
+    info = "Hello"; //str
+    Console.WriteLine(info);
+ 
+ You can use "dynamic" keyword with local vars, fields, method  parameters and return type.
+
+
+HomeWork: Database -- Design following schema (StudentAdmission)
+---------------------------------------------------------------
+STUDENT
+-------------
+STUDENTID - PK
+NAME
+ADDRESS
+
+COURSE
+-------------------
+COURSEID - PK
+COURSENAME
+
+ADMISSION
+--------------
+ADMISSIONID - PK
+STUDENTID   - FK
+COURSEID    - FK
+ADMISSIONDATE - DATE
+FEES        
+
+BATCH
+-----------------
+BATCHID - PK
+STARTDATE 
+BATCHNAME
+
+
+STUDENTBATCH
+------------------------
+STUDENTBATCHID - PK
+ADMISSIONID - FK
+BATCHID     - FK
+
+
+
+ 

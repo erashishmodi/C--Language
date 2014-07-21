@@ -1,0 +1,69 @@
+C# Language  (Version 5.0 or .net framework version)
+===================================================
+
+
+ [C# in Depth is the best book to learn .net framework]
+
+ C# Language is,
+
+     1. Statically typed (or strongly type) language
+     2. C# supports object-oriented paradigm
+     3. C# supports dynamic language features
+     4. C# language is developed using C# Language Specification.
+     5. C# is case-sensitive and its syntax derived from C++ lang.
+     6. CSharp - Sharpness of C++ and easyness of VB 6.
+     7. There isn't any datatype exists with C# so we must have
+        to use the CTS.
+     8. C# code stored into a file called "compilation unit" and you
+        can choose any file name and extension however .cs is commonly         used extension.
+
+     C# is the only language available to all version of .net      framework. 
+
+
+    Statically or strongly typed : The type of "value" and "variable"     will be examined at the time of compilation to avoid runtime     errors.  
+  
+             e.g   float no = 10.10; <-- value type of double (8 bytes)
+                         ^
+                         |__ var type is "float" 
+
+                   [Above statement throws an error due to type                      mismatch at the time of compilation]
+
+Console Application Project Template
+===================================================================
+
+
+  To learn C# & .net framework from the scratch, the VS introduce a simple yet powerful project (program) template which allow us to write and debug code without adding heavy user-interfaces.
+
+
+  The input and output of "Console Application" are bounded with   command prompt or terminal and the class called "System.Console" is
+  used to read & write data from/into terminal(command prompt).
+
+
+
+  What is "project template"?
+
+      Project Template is nothing but XML document contains compilation       parameters, library references, resources & their location and
+      so on. Lately this XML document is used by "build tool (msbuild)"       to produce the assembly.
+
+      The VS offers number of "project templates", each with different
+      amount of files, lib references, resources and build       configurations to save the developer effort on building &       debugging apps.
+  
+
+       When you create a project (using any project template), there will be a file whose extension is .csproj (or in VB it is .vbproj), it is an XML document which is used by build tool.
+
+
+       There will be .sln file exists under your project file which
+       is used to add reference of other projects opened in current
+       IDE. In fact solution explorer shows projects added as a "group" and project groun information is saved into .sln (solution file).
+
+        Important: Do not change .csproj manually. It it is corrupt                    then you can't your project anymore.
+
+                   You can delete .sln file because if it is not there
+                   then VS will create a fresh one. So .sln is not
+                   a part of your project but be careful with .csproj
+                   file.
+
+
+
+ 
+   
