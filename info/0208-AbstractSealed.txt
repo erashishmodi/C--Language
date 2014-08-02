@@ -1,0 +1,262 @@
+abstract and sealed keywords
+====================================================================
+
+ The abstract keyword can be used with method/properties and class.
+
+ If "abstract" keyword with method then it has no body definition and
+ you must have to qualify your class as an abstract.
+ 
+ An abstract class is incomplete or partically developed class and users of this abstract class will complete this class by overriding (finishing incomplete work) methods.
+
+ It is important to note that an abstract class may or may not abstract  methods. Some developer wish their class user's must inherit then they
+ create "abstract" class.
+
+ Have a look at examples:
+
+  public abstract class Language 
+   {
+       public virtual void Speak() { /* body */ }
+    }
+
+Or
+
+  public abstract class Language 
+   {
+      public abstract void Speak(); /* no body */
+   }
+
+  
+ An abstract is incomplete class so we can't create objects directly:
+
+      Language lang = new Language(); // Error
+
+ Instead we've to create sub-class of "Language" and then create an
+ object of that sub-class.
+
+  public class English : Language {
+     public override void Speak() {}
+  }
+       
+
+Example:
+
+
+public abstract class Question
+{
+  //previous
+}
+
+OR
+
+public abstract class Question
+{
+  //Text,Ans1,2,3 properties
+
+  public abstract void Print();
+  public abstract bool IsCorrect {get;}
+} 
+
+The sealed keyword
+--------------------
+
+To create not-inheritable class.
+
+ public sealed class Help { .. }
+
+The "partial" keyword
+------------------------------------
+
+The partial keyword allow us to split the class definition into one or more files (.cs) and later merge them to forms a single class.
+
+
+Use partial classes when length of code exceed so it is the best way to write and maintain code in seperate files.
+
+public partial class Emp
+{
+  //define properties
+  ...
+}
+
+public partial class Emp
+{
+  //define business methods
+  ...
+}
+
+
+The "static" class
+-----------------------------------------
+The static keyword with "class" enforce user to qulify all methods "static methods".
+
+public static  class Sample
+{
+    public static  void Show()  //Valid
+    {
+        Console.WriteLine("Show");
+    }
+    public void Print() {} //Invalid -- It must be static
+}
+
+Extension Methods
+----------------------------------------------
+Extension method is a technique to inject an extra method to your TYPES (including CTS).
+
+
+To create extension method:
+
+  1. Your class must be static and an extension method must be
+     static with following syntax:
+
+
+     public static class  MyExtension
+     {
+         public static ReturnType ExtMethodName(this TypeName refVar)
+         {
+
+         }
+      }
+
+    "this TypeName" is an instruction to glue extension method to     specified "TypeName" TYPE.
+
+
+  2.  static class and methods should be public.
+
+
+Example:
+
+
+public static  class Sample
+{
+    public static void Print(this int x)
+    {
+        Console.WriteLine("Rs. " + x.ToString("N2"));
+    }
+    public static string ToRs(this int x)
+    {
+        return "Rs. " + x.ToString("N2");
+    }
+    public static int Square(this int x)
+    {
+        return x * x;
+    }
+
+    public static int WordCount(this string str)
+    {
+        string []ar= str.Split(new string[] { " ","\n","\t"}, StringSplitOptions.RemoveEmptyEntries);
+        return ar.Length;
+    }
+}
+class Test
+{
+    static void Main()
+    {
+        int no = 100;
+        no.Print();
+        Console.WriteLine(no.Square().ToRs());
+        Console.WriteLine(no.ToRs());
+
+        string str = "The     re        d     world";
+        Console.WriteLine(str.WordCount());
+
+        str = "One|Two|Three Four";
+            
+        string[] ar = str.Split(new string[] { "|" ," "}, StringSplitOptions.RemoveEmptyEntries); ;
+        Console.WriteLine(ar.Length);
+        foreach (var t in ar)
+        {
+            Console.WriteLine(t);
+        }
+    }
+}
+
+
+Object Comparision - Compare your objects
+===================================================================
+
+ In order to compare the content of "objects", we must have to override "Equals" and optionally "GetHashCode()" methods of "System.Object" class.
+
+ Example:
+
+ public class Product
+  {
+     public int ID {get;set;}
+     public string Name {get;set;}
+   }
+
+And,
+ 
+  here we are comparing object references (not the content of objects)
+
+       Product a = new Product { ID = 1, Name = "Pencil"};
+       Product b = new Product { ID = 1, Name = "Pencil"};
+
+       if(a == b) {} // we're comparing references and they are not 			// same
+
+       So, we must have to use Equals() method with our own comparision
+       implementation.
+
+Example: Override Equals and ToString()
+
+ToString() returns "string description of your object" for debug and logging purpose.
+
+public class Product
+{
+    public int ID { get; set; }
+    public string Name { get; set; }
+
+    public override bool Equals(object obj)
+    {
+        Product other = obj as Product;
+        if (other == null) return false;
+        if(this.Name == null && other.Name == null)
+            return false;
+        if (this.ID != other.ID) return false;
+        if (!this.Name.Equals(other.Name)) return false;
+        return true;
+    }
+    public override string ToString()
+    {
+        return "[Product: " +  ID + " ," + Name + "]";
+    }
+}
+class Test
+{
+    static void Main()
+    {
+        Product a = new Product { ID = 1, Name = "Pencil" };
+        Product b = new Product { ID = 1, Name = "Pencil" };
+        if (a.Equals(b))
+            Console.WriteLine("Eq");
+        else
+            Console.WriteLine("Not Eq");
+
+        Console.WriteLine(a);
+    }
+}
+
+IMPORTANT: Never use == (equality), !=, >=, <= > < operators to compare
+           objects. Use "Equals" for equality or Inequlity and            CompreTo() for greater/less (relational) comparision.
+
+
+GetHashCode() -- You can use data-hashing techniques (alorithms) to                  produce "int" from data of your object.
+
+So override the GetHashCode() in your class like that:
+
+public class Product 
+{
+  .....
+  public override bool Equals(object obj)
+    {
+        return GetHashCode() == obj.GetHashCode();
+    }
+    public override int GetHashCode()
+    {
+        int myMagicNo = 17;
+        int hash = 0;
+          hash = hash + myMagicNo *  ID;
+        if (Name != null)
+           hash = hash +  myMagicNo * Name.GetHashCode();
+        return hash;
+    }
+  ....
+}
