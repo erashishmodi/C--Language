@@ -1,0 +1,21 @@
+<html>
+        <head>
+                <title>This is the JAVASCRIPT testing</title>
+                <script>
+                        //using typeof()
+                        var num;
+                        console.log(typeof(num));
+                        num=10;
+                        console.log(num,typeof(num));
+                        num="Ashish";
+                        console.log(num,typeof(num));
+                        num=10.10;
+                        console.log(num,typeof(num));
+                        num=true;
+                        console.log(num,typeof(num));
+                        								
+                </script>
+        </head>
+<body>
+</body>
+</html>

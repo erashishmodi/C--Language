@@ -1,0 +1,21 @@
+<html>
+        <head>
+                <title>This is the JAVASCRIPT testing</title>
+                <script>
+					var array=["Ashish",10,10.110,'Bhautik'];
+					console.log(array);
+					for(var i=0;i<=array.length;i++)//array traversing way 1
+					{
+					        console.log(array[i]);
+					}
+					for(index in array)//array traversing way 2
+					{
+					        console.log(index,array[index]);
+					}
+					
+                        
+                </script>
+        </head>
+<body>
+</body>
+</html>

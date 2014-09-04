@@ -1,0 +1,18 @@
+<html>
+        <head>
+                <title>This is the JAVASCRIPT testing</title>
+                <script>
+                        //This program shows the use of pop() and push() functions for the Array in Javascript
+                        var num=[];
+                        num.push(10);
+                        console.log(num.length);
+                        num.push("ashish");
+                        num.push('Patan');
+                        console.log(num.pop());
+                        console.log(num.pop());
+                        console.log(num.pop());
+                </script>
+        </head>
+<body>
+</body>
+</html>
