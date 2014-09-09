@@ -1,0 +1,241 @@
+ function
+ ===========================================================
+
+  The "function" keyword is used to define "function object"
+  using one of the two way:
+
+   1.  function functionName(arguments...) { .. }
+   2.  var refName = function(arguments...) { ... }
+
+   Use "return" keyword to stop the function execution and also
+   returns value.
+
+   Use "arguments" automatic array  to read the
+   function argument data.
+
+   Example:
+        console.info("MyApp: Begin function definition");
+        function add(no1, no2) {
+            return no1 + no2;
+        }
+        var mul = function (no1, no2) {
+            return no1 * no2;
+        };
+
+         //automatic " arguments" array
+        var div = function () {
+            console.log(arguments);
+        };
+        console.info("MyApp: End function definition");
+        //call functions
+        result = add(10, 20);
+        console.log(mul(10, 2), result);
+        div(22, 33, 444);
+
+
+ Array.splice(StartNumber,DeleteIndex, elements....) method
+ ======================================================
+
+       var nos = [10, 20, 30];
+
+        //Insert elements
+        nos.splice(0, 0, 100);
+        nos.splice(1, 0, 200);
+
+        console.log(nos);
+        //Delete at 3rd index
+        nos.splice(2, 1);
+        console.log(nos);
+        
+        nos.splice(1, 0,30, 90,200,300,400,500);
+        console.log(nos);
+
+
+ Callback function - A function that is not called/invoked  explicitly but it will be called by another function.
+ ----------------------------------------------------------
+  
+   array.sort(comparatorFunction); -- compratorFunction has two arguments and it returns 0 if value of both argument is same, return 1 ( >0) if arg1 is greater than arg2, return -1 if arg2 is greater thant arg1.
+
+        var nos = [110, 20, 30,4];
+        function myComparator(arg1, arg2) {
+            if (arg1 == arg2) return 0;
+            if (arg1 > arg2) return 1;
+            return -1;
+        }
+        nos.sort(myComparator);
+        console.log(nos);
+
+        var names = ["Raj","Man","Aman","Bhar"];
+
+        names.sort( function(arg1,arg2) {
+            if (arg1 == arg2) return 0;
+            if (arg1 > arg2) return 1;
+            return -1;
+        } );
+        console.log(names);
+
+
+Example: array.forEach( function )
+
+        var nos = [110, 20, 30,4];
+        nos.forEach(function (value,index) {
+            console.log(index, value);
+        });
+
+Custom object using the function keyword
+==============================================================
+ 
+ Syntax:
+
+    function MethodOrTypeName(argument...)
+     {
+        this.field1 = value1;
+        this.method1 = function() { ... };
+        ....
+      }
+
+"this" refer the function object so if you're working with fields or method then you must have to qualify it with "this".
+
+Example:
+     function Emp(id, name) {
+            //define properties
+            this.id = id;
+            this.name = name;
+
+            this.printData = function () {
+                console.log("ID : " + this.id + " Name : " 
+                                    + this.name);
+            };
+        }
+
+        var e1 = new Emp(10, "Raj");
+        var e2 = new Emp(20, "Mohan");
+        console.log(e1, e2);
+        console.dir(e1);
+
+        e1.printData();
+        e2.printData();
+
+
+Example: Create an object which allow us to add and list the objects.
+
+        function Emp() {
+            this.emps = [];
+            this.addEmp = function (obj) {
+                this.emps.push(obj);
+            };
+            this.printEmp = function () {
+                this.emps.forEach(function (v, i) {
+                    console.log(v.id , v.name);
+                });
+            };
+            this.removeEmp = function(index) {
+                this.emps.splice(index,1);
+            };
+        }
+
+        var e1 = new Emp();
+        e1.addEmp({ id: 10, name: "Rajesh" });
+        e1.addEmp({ id: 20, name: "Mohan" });
+        e1.printEmp();
+
+
+JavaScript "falsy" value
+=========================================
+   Following value will be consider falsy (ie. evalute boolean    false).
+
+   ""    - Empty string
+   ''    - Empty string
+   0
+   0.0   - zero
+   null  
+   undefined 
+   NaN 
+   Infinity 
+   false
+
+Example:
+
+        var str; //str=10*"avx";
+        console.log(str);
+        if (str) {
+            console.log("Exists");
+        } else {
+            console.log("Not Exists");
+        }
+
+
+Example: parseFloat, parseInt and arithmetic operator - * /
+         to parse the string.
+
+        var str = "10A00.112";
+        var int = parseInt(str);
+        var float = parseFloat(str);
+
+        if (!int) {
+            console.log("Invalid integer data");
+        }
+
+        var anotherInt = 1 * str;  // Use - * / to convert string                                    // to number
+                                   // + sign is used to concat
+				   // the string.
+        console.log(anotherInt);
+
+        console.log(int, float);   
+
+
+Equality (==), Not equality (!=), Identity ( === ) and not identity (!==)
+-------------------------------
+
+        console.log(1 == 1);
+        console.log(1 == 1.0);
+        console.log(1 == '1');
+         
+        console.log(1 === '1', 1===1,  1 !== 1);
+
+ === and !== compares both type and data.
+
+
+Math Object
+==============================================
+       //Math object
+        console.log(Math.pow(2, 3));
+        console.log(Math.ceil(100.90));
+        console.log(Math.floor(100.90));
+
+Date object
+==================================================
+ Represent Date and time.
+
+        var d = new Date();  //Local datetime
+        console.log(d); //toString
+        console.log(Date.now());
+
+
+ The delete keyword
+ ==============================================
+ To remove/unset an object property or array element.
+
+        var nos = [10, 20, 30];
+        var emp = {
+            "no": 10,
+            "name": "Rajesh"
+        };
+        
+        console.log(nos);
+        console.log(emp);
+       
+        delete (nos[1]);
+        delete emp.name;
+
+        console.log(nos);
+        console.log(emp);
+  
+  NOTE: Verify delete statement on different web-browser. It has
+        different implementation on diff browsers.
+
+
+
+
+
+ 

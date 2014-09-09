@@ -1,0 +1,145 @@
+Web Platform
+--------------------------------------------------------------------
+
+ It is small framework sits upon the existing frameworks (top-level)
+ to develop, and execute programs.
+
+ In the area of web, we have web-client platform (Web-bRowser) and
+ web-server platform (.net framework/asp.net).
+
+
+ Web-clients platforms can be web-browser, or your custom programs  which request the web-resources which are placed at "web-server  platform".
+
+
+ Web-browser
+ ----------
+ It is the complex software in your system. It does:
+
+   => Request the resources. Browser creates an envelop to send 	instructions (called request header) and data (request body). 
+   => It receive data & instructions ( resource header and response 	body).
+
+   => It parse response data(body) as per response header(instructions)
+
+   => It generate Document Object Model - DOM tree. Create DOM (an      object) of each HTML and Text and place it to DOM tree.
+
+   => CSS Modules (color, image, animation, text,sound etc) are used
+      to assign CSS properties to DOMs.
+
+   => JavaScript language and JavaScript runtime execute JavaScript 
+      code.
+   => Graphics Engine paint the content on browser-window as per DOM-      tree.
+   => Authering tool to create or deploy Add-ons/plug-ins .
+  
+   => Provide debugging tools - i.e Developer Tools (Ctrl+Shift+I -        Moz/Chrome)
+
+
+
+How web communication works?
+-----------------------------
+
+ 
+ | WebBrowsers |
+ | (clients)   |=====> Request web-resources  ====> | HTTP or Web
+ | or custom   |       located at HTTP server       | Server
+ | programs    |                                    | (apache, IIS
+                <==== Response <========            ----------------
+						    /\	||
+						    || 	||
+						    ||	\/
+					-----------------------------
+					|Application Server 
+					| (.NET/Java/PHP etc)
+                                        |-----------------------------
+                                        | Process the client's request
+					| and produce 					| HTML/CSS/JavaScript or 
+					| XML/JSON data and forward
+					| them to web-server
+                                        ------------------------------
+                                          |         |        | 
+                                       Database    Mail     Other
+                                        Server       Server  Server
+
+
+
+Web-Server : Main job of web-server is to listen clients. Resolve resource requests and forward resource requests to application server if resource-type is "dynamic". In case of 'static' resource, the web-server creates a copy of that resource and forward it (copied resource) to web-browser.
+
+  Apache, Internet Information Service (IIS) are example of web-server.   Note that web-server cannot execute any resource requests except they
+  makes copy of 'static' resource.
+
+ 
+Web Resources
+-------------
+
+  .html, .css, .js, image files, video/audio files are example of   'static' resources.
+
+  Programs written in C#/Java/PHP are example of dynamic resources.
+
+
+Install the IIS
+=================================
+
+1. Control Panel + Programs & Features + Turn on/off    windows components. 
+
+2. Select [x] Internet Information Services
+              [x] IIS6 compatibiity
+                 [x] Web component
+                      [x] ASP.NET 4.5
+                      [x] ASP.NET 3.5
+3. OK 
+    
+
+
+HTML
+===================================================
+
+HTML is a standard to present data on the web. Currently we've HTML4 and HTML5 standard (HTML5 is partially implemented by browser vendors and developers).
+
+
+HTML TAGS
+-----------
+
+1. directive <!doctype html>  
+
+   <!doctype html> is a new way to tells/instructs the
+   web-browser to create DOMs and render them using
+   "standard mode".
+   If <!doctype html> is missed then web-browser will
+   entered into "Quirk/dirty mode" and its render-engine will surprise you with different rendering behaviors.
+
+2. Semantic HTML Tags
+
+    <div class="chapter-container">
+      
+      <div class="chapter-title">Chapter-1</div>
+       
+      <div class="chapter-body">
+         details descirption of chapter-1
+
+         
+         <div class="chapter-footer">
+              * condition applied
+         </div>
+      </div>
+      ......
+      
+   </div>
+         
+
+HTML5 Sematics tags
+
+ <section>
+     <article>  
+        <header>Chapter-1</header>
+         <div class="chapter-content">
+             details descirption of chapter-1
+             <div class="author-address">
+
+             </div>
+         </div>
+         <footer>
+              * condition applied
+         </footer>
+      </article>
+      ......
+      
+   </section>

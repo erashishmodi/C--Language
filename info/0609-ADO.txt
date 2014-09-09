@@ -1,0 +1,59 @@
+  Microsoft SQL Server Version 2012
+  ---------------------------------
+
+  MSSQL Server database has different editions including:
+
+    1. Standard (Commercial) 
+    2. Enterprize (Commercial) and
+    3. Express (Free for developers)
+
+
+  When we install the VS, MSSQL Server Express edition will be
+  installed and we can use VS to design the database (create   table,views, stored proc etc).
+
+  MSSQL Server Express edition has all these abilities and features exists with Standard and Enterprize except it has
+  single user experience. It means you cannot use express databases outside your installation machine.
+
+  MSSQL Server - Authentication & Authorization
+  ----------------------------------------------
+  There are two authentication modes:
+
+   1. Windows Authentication - Windows OS user's credentails
+			       are used to logged the SQL Server.
+
+   2. SQL Server Authentication - Separate userid and password
+				required to connect the database.
+
+   [Express Edition support Win Authentication only].
+
+  MSSQL Server databases
+  -----------------------
+  With Express edition, you can create two types of databases (However there isn't any difference):
+
+   1. Remote Database - They are stored into MSSQL Server's HOME
+			(centralize repository) and shared
+			by one or more applications.
+   2. Local Database  - They are stored/created into the project
+			and they are used by the current app.
+                        This type of database is only used for
+			application development. In production,
+			we must have to create "remote" database.
+
+
+ MSSQL Server Instances
+ -----------------------
+ Each installation of MSSQL product requires a unique instance- name (servername).
+
+ For example, Express installation uses (LocalDB)\V11.0
+
+ 1. Open VS + 2. View Menu  3. SQL Server Object Explorer
+ 4. Right click on server node + Add SQL Server instance
+
+ 
+try(Connection cn = DriverManager.getConnection("")) {
+
+}catch(Exception ex) {
+
+}
+
+Object must be java.lang.AutoCloseable

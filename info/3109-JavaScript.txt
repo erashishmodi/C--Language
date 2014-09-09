@@ -1,0 +1,451 @@
+ The Document Object Model
+ ------------------------------------------------------------
+
+  The web-browser's HTML parser creates DOMs (you can say HTML     objects) for each HTML & Text element in a web document when
+  it loads web-document.
+
+  In other words, each HTML & Text is transformed into an object
+  and placed appropriately into the DOM Tree (The <HTML> object   is root DOM). Once the DOM is constructed, the web-browser
+  set CSS Properties and use JavaSCript code to call the DOM
+  methods.
+
+  The JavaScript language also uses DOM APIs to create, delete,
+  update the DOMs programatically.
+
+  Access the DOM programatically
+  -------------------------------
+
+   We will use "document" object and its properties/methods to
+   work with DOMs.
+
+   1. document.getElementsByTagName("tagName") - This method
+      returns collection of DOMs of given "tagName" from the
+      currently loaded document.
+
+      Returned object of getElementsByTagName() is NodeList, has
+      length property and item() method.
+
+ Example:
+
+     <h1>First</h1>
+     <p>Para1</p>
+     <h1>Second</h1>
+
+   <script>
+        var list = document.getElementsByTagName("h1");
+        console.log(list);
+
+        for (i = 0; i < list.length; i++) {
+            var item = list.item(i);
+
+            console.log(item);
+
+            //set CSS properties
+            item.style.color = "red";
+            item["style"]["backgroundColor"] = "#eee";
+
+            //Replace the content via innerHTML attribute
+            item.innerHTML = "Sample Text " + i;
+            //item["innerHTML"]="Text here";
+        }
+    </script>
+
+  2. dom.getAttribute("attr-name") - Returns value of given 
+     attribute of DOM. Returns null if attribute not exists.
+  3. dom.setAttribute("attr-name","attr-value") - Set attribute
+     value.
+
+Example:
+    <input type="text" />
+    <input type="submit" />
+    <input type="radio" />
+
+    <script>
+        var list = document.getElementsByTagName("input");
+        for (i = 0; i < list.length; i++) {
+            var item = list.item(i);
+            console.log(item.getAttribute("type"));
+            if (item.getAttribute("type") == "submit") {
+                item.style.color = "green";
+            }
+            //Transform all input DOM to type "text"
+            //item.setAttribute("type", "text");
+        }
+    </script>
+ 
+  4. document.getElementsByName("name-attribute-value") - Returns
+      NodeList of DOMs having given "name-attribute-value".
+
+Example:
+
+    <h1 name="one">Hello</h1>
+    <input type="text" />
+    <input name="one" type="submit" />
+
+    <style>
+        .box {
+            border:1px solid green;
+        }
+    </style>
+    <script>
+        var list = document.getElementsByName("one");
+        for (i = 0; i < list.length; i++) {
+            var item = list.item(i);
+            item.setAttribute("class", "box");
+            //item.className = "box";
+            //Or item["className"]="box";
+        }
+    </script>
+
+ 5. document.getElementById("id-attr-value") -- Returns a DOM if
+    "id" exists, returns null otherwise.
+
+   e.g.   <div id="result"></div>
+          <script>
+            var result = document.getElementById("result");
+            if(result) {
+              result.innerHTML = "Hello World";
+            }
+          </script>
+
+   [Note: There are number of open source JavaScript libraries
+          to select the DOMS effectively - these are jQuery           (Sizzle) and sketor. jQuery is also used to           create/update/delete DOMs].
+
+ 6. document.getElementsByClassName("class-attr-value") - Select
+    DOMS based upon the value of class attribute.
+
+ 7. document.createElement("tagName") - Create a DOM     programaticaly.
+
+ 8. dom.appendChild( dom ) -- Append a child DOM into existing                               DOM.
+ 9. dom.removeChild( dom ) - Remove the child DOM.
+
+Example:
+    <div id="out" >Test</div>
+    <script>
+        //Obtain the live DOM
+        var out = document.getElementById("out");
+        if (out) {
+            var tx1 = document.createElement("input");
+            tx1.setAttribute("type", "text");
+            tx1.setAttribute("value", "100");
+            out.appendChild(tx1);
+
+            var tx2 = document.createElement("input");
+            tx2.setAttribute("type", "text");
+            tx2.value = "200";
+            out.appendChild(tx2);
+            var btn = document.createElement("input");
+            btn.type = "submit";
+            btn.value = "OK";
+            out.appendChild(btn);
+
+  out.appendChild(document.createTextNode("Hello World"));
+        }
+    </script>
+          
+Example:
+
+<select id="out" ></select>
+    <div id="result"><strong>India</strong> is my                    <em>country</em>.</div>
+    <script>
+        var out = document.getElementById("out");
+        var country = ["India","Nepal","UK"];
+        if (out) {
+            for (var index in country) {
+                var opt = document.createElement("option");
+                opt.innerHTML = country[index];
+                out.appendChild(opt);
+            }
+        }
+        
+        var result = document.getElementById("result");
+        console.log(result.innerHTML);
+        console.log(result.innerText);
+    </script>
+
+Example:
+
+ var emps = [ {
+         id: 10,
+         name: "Raj"
+         },{
+         id: 20,
+         name: "Ram"
+         },...];
+
+ <table id="table"></table>
+
+ Create a program to show emp data into the "table".
+
+
+setTimeout( function, millis) function
+----------------------------------------
+
+  This function execute the "callback" function after   given time in millis is elasped.
+
+ <h1 id="head"></h1>
+ <script>
+   var head = document.getElementById("head");
+   setTimeout( function() {
+      head.innerHTML = "ABC Ltd";
+   }, 1000); //after 1 second 
+ </script>
+
+
+The closure or callback object
+======================================================
+
+A closure is an object which persists the state of variables & arguments define inside it.
+
+Example: Prints numbers between 1 to 10 after 100 ms interval.
+
+ for(i=1,duration=0;i<=10;i++,duration=duration+100) {
+ 
+    setTimeout( function(){
+       out.innerHTML = i;
+    },duration);
+
+ }
+
+ In above example, value "11" will be printed 10 times because
+ the value of "i" counter variable is the last value when for  loop ends. After loop ends, callback will be executed 10 times  with i (11 value).
+
+To solve this issue we must have to create "Closure (anonymous) object".
+
+ In JavaScript, function inside another function is known as  closure.
+
+ Re-write the previous code:
+
+ for(i=1,duration=0;i<=10;i++,duration=duration+100) {
+    setTimeout(MyClosure(i),duration);
+ }
+ //MyClosure returns an object that preserve the argument value
+ function MyClosure(m) {
+   return function() {
+     out.innerHTML = m;
+   };
+  }
+
+OR,
+
+  setTimeout( (function(m) { 
+                return function() {
+                   out.innerHTML = m;
+                };
+               })(i),duration);
+
+Example: Set opacity
+
+    <style>
+        #head {
+            background:#ff6a00;
+        }
+    </style>
+    <h1 id="head">ABC LTD</h1>
+    <script>
+        var head = document.getElementById("head");
+        for (i = 0, dur = 0; i <= 1.0; i = i + 0.01, dur = dur + 10) {
+            setTimeout(Callback(i), dur);
+        }
+        //Define callback or closure 
+        function Callback(m) {
+            return function () {
+                head.style.opacity = m;
+            };
+        }
+    </script>
+
+
+JavaScript Event handlers
+============================================================
+
+ DOMs allow us to attach or detach JavaScript function either at  the time of declaration or during program execution.
+
+ DOM event names begins with "on" prefix.  
+   
+  for example, onclick, onkeypress, onmouseover, onmousedown, etc
+
+ JavaScript function used to attach with DOM event is called
+ handler.
+
+ 1. Attach handler declaratively.
+
+    <p onclick="handler1()">Click Here</p>
+    <h1 onclick="handler1()">Click Here</h1>
+    <input type="button" onclick="handler1()" value="Click      Here"/>
+
+    <script>
+      function handler1() {
+          console.log("This is click handler");
+      }
+    </script>
+
+
+ 2. Attach handler programatically.
+
+    <p id="para1">Click Here</p>
+    <script>
+      var para1 = document.getElementById("para1");
+      para1.onclick = function() {
+         console.log("This is click handler");
+      }
+    </script>
+
+Passing parameters to declaratively assigned handlers
+==========================================================
+
+ You can pass one or more value or object reference of current  DOM using this keyword.
+
+Example:
+<p onclick="handler1(1,this)">Click Here</p>
+    <h1 onclick="handler1(2,this)">Click Here</h1>
+    <input type="button" 
+           onclick="handler1(3,this)" value="Click Here"/>
+
+    <script>
+        function handler1(n,obj) {
+            console.log("This is click handler", n, obj);
+            obj.style.background = "red";
+        }
+    </script>
+
+
+Example: Create/Delete DOMS and handle events
+
+    <div id="out"></div>
+    <script>
+        var out = document.getElementById("out");
+        for (i = 1; i <= 3; i++) {
+            var link = document.createElement("a");
+            link.setAttribute("href", "#");
+            link.innerHTML = "Link" + i;
+            link.onclick = (function (m,currObj) {
+                return function () {
+                    console.log(m, "button is pressed");
+                    currObj.remove();
+                };
+            })(i,link);
+            out.appendChild(link);
+        }
+    </script>
+
+Alternative syntax to create closure
+=======================================================
+    <a href="#" id="btnIncr">A+</a>
+    <a href="#" id="btnDecr">A-</a>
+    <h1>ABC LTD</h1>
+    <p>Sample Para</p>
+
+
+    <script>
+        function FontSize() {
+            var defaultSize = 8;
+            this.incr = function () {
+                defaultSize++;
+                document.body.style.fontSize = defaultSize + "px";
+            };
+            this.decr = function () {
+                defaultSize--;
+                document.body.style.fontSize = defaultSize + "px";
+            };
+        }
+        var obj = new FontSize();
+        document.getElementById("btnIncr").onclick = obj.incr;
+        document.getElementById("btnDecr").onclick = obj.decr;
+    </script>
+
+
+Key events
+======================================================
+
+onkeydown  - When a key is holddown and it returns key code of
+             pressed key. 
+
+onkeyup    - When a key is released. It returns key code of 		pressed key.
+
+onkeypress - Returns char code or ASCII.
+
+             We will use "event" object to obtain event specific
+             data into event handlers.
+
+             Always use event.which property to retrieve char 	     code of pressed key.
+
+
+    <input type="text" id="no" onkeyup="testIt(event)" />
+    <script>
+        //keyevents
+        function testIt(event) {
+            console.log(event);
+        }
+    </script>
+
+    Disabled the event action
+    -------------------------
+    Returns false from event handler to disabled the event     action. 
+
+    e.g  <input type="text" onkeypress="return numOnly(event)"/>
+
+     <script>
+       function numOnly(event) {
+          var ch = event.which;
+          if(ch>=48 && ch<=57) return true;
+          return false;
+        }
+      </script>
+
+Example: Input validation
+
+    <form>
+        <br />No : <input type="text" id="no" name="no" />
+        <br />Name : <input type="text" id="name" name="name" />
+        <br />
+        <input type="submit" value="Add" 
+                 onclick="return validateTheForm()"/>
+        <ul id="message"></ul>
+        
+    </form> 
+     <script>
+         function validateTheForm() {
+             var str = "";
+             if (empty("no"))
+                 str = str + "<li>Number is required";
+             if (empty("name"))
+                 str = str + "<li>Name is required";
+             if (str) {
+                 get("message").innerHTML = str;
+                 return false;
+             }
+             return true;
+         }
+         function empty(id) {
+             return !document.getElementById(id).value;
+         }
+         function get(id) {
+             return document.getElementById(id);
+         }
+      </script>
+
+Example: <datalist> and <input type="text" list=""/>
+----------------------------------------------------
+   <input type="text" list="names"/>
+   <datalist id="names">
+      <option value="Amar"/>
+      <option value="Anil"/>
+       .....
+   </datalist>
+
+
+TAGS:
+
+ <progress max="100" id="p1" ></progress>
+     <p>Harsh got <meter max="100" high="90"  low="40"  value="30"></meter> marks</p>
+     <video autoplay controls>
+         <source src="" />
+     </video> 
+     <input type="number" />
+     <details>
+         <summary>Click here for more info</summary>
+         <div>
+             Here is <mark>Huge</mark> text.
+         </div>
+     </details>
