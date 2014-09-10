@@ -1,0 +1,236 @@
+Method Overriding
+----------------------------------------------------------------
+ It is an Object-oriented paradigm technique to supersede or replace
+ super's method in sub-classes.
+
+ In some case where we do not wish super's method behavior or we want to stop super's method's behvior then we can use "overriding" techique.
+
+
+ Which method of super class are overriden?
+
+    In C#, you can override virtual and abstrct methods. The "virtual" keyword or "abstract" keywords are used to create "overridable" methods in super-class.
+
+ For example:
+
+  Speaker of different language uses his/her own mother-tounge to  delive speech.
+
+ public class Language
+  {
+     public virtual void Speak()
+      {
+         Console.WriteLine("I can speak......");
+       }
+   }
+ public class English : Language {}
+ public class Gujarati : Language {}
+
+ class Test
+ { 
+   static void Main()
+    {
+       English e= new English();
+       Gujarati g = new Gujarati();
+       e.Speak(); //  I can speak...
+       g.Speak(); // I can speak...
+     }
+ } 
+
+In above program, both e.Speak() and g.Speak() execute super's method and that is unwanted. To address this problem, we must have to override "Speak" method in sub-classes - English and Gujarati.
+
+
+ To override the 'virtual' or 'abstract' method, we must have to define   same signature method in sub-class with 'override' keyword.
+
+Example:
+
+ 
+public class Language
+{
+    public virtual void Speak()
+    {
+        Console.WriteLine("I can speak......");
+    }
+}
+public class English : Language 
+{
+    public override void Speak()
+    {
+        Console.WriteLine("I can speak English.");
+    }
+}
+public class Gujarati : Language 
+{
+    public override void Speak()
+    {
+        Console.WriteLine("I can speak Gujarati.");
+    }
+}
+
+class Test
+{
+    static void Main()
+    {
+        English e = new English();
+        Gujarati g = new Gujarati();
+        e.Speak(); //  I can speak English
+        g.Speak(); // I can speak Gujarati
+
+        Language l = e; //Implicit cast
+        l.Speak();
+        l = g;          //Implict cast
+        l.Speak();
+    }
+}
+
+Or code in Main:
+
+  Language []speakers = 
+    {
+      new Gujarati(), new English(),
+      new Gujarati(), new Gujarati(), new English()
+    };
+  foreach(var s in speakers)
+    s.Speak();
+
+
+Example: Online test module:
+
+using System;
+
+public class Question
+{
+    public string Text { get; set; }
+    public string Answer1 { get; set; }
+    public string Answer2 { get; set; }
+    public string Answer3 { get; set; }
+
+    public Question(string Text, String Answer1, String Answer2, String Answer3)
+    {
+        this.Text = Text;
+        this.Answer1 = Answer1;
+        this.Answer2 = Answer2;
+        this.Answer3 = Answer3;
+    }
+    public virtual void Print() 
+    {
+        Console.WriteLine("Question : " + Text);
+        Console.WriteLine("1. " + Answer1);
+        Console.WriteLine("2. " + Answer2);
+        Console.WriteLine("3. " + Answer3);
+    }
+    public virtual bool IsCorrect { get { return false; } }
+}
+public class Single : Question
+{
+    public int UserAnswer { get; set; }
+    public int CorrectAnswer { get; set; }
+    public Single(string Text, String Answer1, String Answer2, String Answer3, int CorrectAnswer)
+        : base(Text, Answer1, Answer2, Answer3)
+    {
+        this.CorrectAnswer = CorrectAnswer;
+    }
+
+    public override bool IsCorrect
+    {
+        get
+        {
+            return UserAnswer == CorrectAnswer ;
+        }
+    }
+    public override void Print()
+    {
+        base.Print();
+        Console.WriteLine("Enter your choice [1 or 2 or 3 ] : ");
+        UserAnswer = int.Parse(Console.ReadLine());
+    }
+}
+
+public class Multi : Question
+{
+    public int[] CorrectAnswer { get; set; }
+    public int[] UserAnswer { get; set; }
+     public Multi(string Text, String Answer1, String Answer2, String Answer3, int []CorrectAnswer)
+        : base(Text, Answer1, Answer2, Answer3)
+    {
+        this.CorrectAnswer = CorrectAnswer;
+        UserAnswer = new int[3];
+    }
+     public override bool IsCorrect
+     {
+         get
+         {
+             return UserAnswer[0] == CorrectAnswer[0]
+                      && UserAnswer[1] == CorrectAnswer[1]
+                          && UserAnswer[2] == CorrectAnswer[2];
+         }
+     }
+     public override void Print()
+     {
+         base.Print();
+         Console.WriteLine("Enter first choice :");
+         UserAnswer[0] = int.Parse(Console.ReadLine());
+         Console.WriteLine("Enter second choice :");
+         UserAnswer[1] = int.Parse(Console.ReadLine());
+         Console.WriteLine("Enter third choice :");
+         UserAnswer[2] = int.Parse(Console.ReadLine());
+     }
+}
+
+
+
+class Test
+{
+    static void Main()
+    {
+        Question[] ques =
+        {
+            new Single("What is DOC?","Doctor","Document","Donot",2),
+            new Multi("Why","One","Two","Three",new int[]{ 1,0,1}),
+             new Single("What is TOC?","Table","TOCD","None",1),
+             
+        };
+
+        foreach (var q in ques)
+        {
+            q.Print();
+        }
+        Console.WriteLine("Result : ");
+        foreach (var q in ques)
+        {
+            Console.WriteLine(q.Text + " : " + q.IsCorrect);
+        }
+    }
+}
+
+Hiding super's member in sub-classes
+=========================================================
+
+If super's member name especially public , internal and protected is used in sub-class then sub-class hides super's definition.
+
+If your hiding is intension then use "new" keyword with sub-class members.
+
+Ex:
+
+public class One
+{
+    public int no; //field
+
+    public void say()
+    {
+        Console.WriteLine("Say it");
+    }
+}
+public class Two : One
+{
+    public new string no;  <---- Hiding was intended
+    public int say;
+}
+class Test
+{
+    static void Main()
+    {
+        Two a = new Two();
+        a.no = "Hello";
+        a.say = 10;
+        a.say();
+    }
+}

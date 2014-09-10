@@ -1,0 +1,269 @@
+Inheritance
+=====================================================================
+
+ Inheritance is an OOP technique to create a class from existing class
+ where the new class have all accessible properties from existing class  and you can add additional properties in it -- That's why Inheritance is also known as "extensiblility".
+
+ General syntax:
+
+ access_modifier storage_modifier class ClassName : BaseOrSuperClass,
+                                 [interface1,interface2,....]
+{
+ //
+}
+ 
+ Note that the new class, called sub-class (derived class) cannot
+ inherit private members and constructors of super (or base) class.
+
+Inheritance is "transitive".
+-----------------------------
+ Each & every class must have one and only immediate (direct) super class.
+
+class A
+{
+}
+class B : A
+{
+
+}
+
+That means class "A" is derived from "System.Object" super class
+           class B" is derived from "A" and "System.Object".
+
+You can implements one or more interfaces to a class to add different behaviors.
+
+To extends a class (inherit a class) means to use the "form" of 						existing class.
+
+To implement one or more interfaces means to define specific behaviors 						in our classes.
+
+
+In C++, the "class" keyword is used to declare "class" and "interface" and that's why people confused with so called "multi--inheritance" -- However in nature, there isn't "multi--inheritance".
+
+  In C++,
+
+  class Person {
+       int age;
+       std::string name;
+   };
+  class Teacher {    <---------- Interface
+      virtual void teach() = 0 ; 
+   }
+  class Student {    <---------- Interface
+       virtual void learn() = 0;
+   }
+
+  class StudentPerson : Person,Student {}
+  class TeacherPerson : Person,Teacher, Student {}
+
+
+
+
+Inheritance Object hierarchy  -- Casting of objects
+==============================-------------------
+
+Example:
+
+using System;
+
+class A
+{
+    public int n;
+}
+class B : A
+{
+    public int n;
+}
+
+class Test
+{
+    static void Main()
+    {
+        /*
+        B x = new B(); 
+        x.n = 100;
+
+        ((A)x).n = 90;  //Obtain
+
+        Console.WriteLine(x.n + " " + ((A)x).n);
+         * */
+        /*
+        A x = new B();
+        x.n=90;
+        ((B)x).n = 100;
+        Console.WriteLine(x.n + " " + ((B)x).n);
+         * */
+        /*
+        object x = new B();
+        ((A)x).n = 90;
+        ((B)x).n = 100;
+        Console.WriteLine(((A)x).n + " " + ((B)x).n);
+         * */
+
+    }
+}
+Once we create an object of "Sub-class", the system automatically create objects of super-classes in which case they are appearing. It means we've two or more object references.
+
+   new B(); statement will create three objects.
+ 
+ You can choose "cast () operator" or "as operator" to select object  reference from "Inheritance object hierarchy".
+
+ In inheritance, you can select object reference from "sub-class reference variable" without using cast or as operator and this kind of  selection is called "Implicit casting".
+
+ For example,
+
+    B x = new B();
+
+    A  y = x;  //Implicit cast
+   
+    Object z = x; //Implicit cast
+
+    x.n = 90;
+    y.n = 100;
+    Console.WriteLine(x.n + " " + y.n);
+
+But you must have to use () or as operator to select object reference from "super-class reference" to sub-class reference variable.
+
+    object z = new B(); 
+
+    B x = z; //Error -- You must cast explicitly
+             //Use    B x = (B)z  Or   B x = z as B;
+
+    A y = z; //Error -- do --
+
+  
+ Explicit cast - () Vs as operator
+ ---------------------------------
+  () cast operator throws an exception when invalid cast occurs.
+
+  "as" operator returns null when invalid cast occurs.
+
+Example:
+
+class A{}
+class B: A{}
+class C: A{}
+
+Code in Main:
+
+    C x = new C();
+    B y = new B();
+
+    object z = x;  //Implicit cast or boxing
+
+    //explict cast or unboxing
+
+    B t1 = (B)x; //syntax is valid and cast is valid
+    C t2 = (C)x; //syntax is valid but invalid cast -- it throws
+		 // exception
+
+   Note: Always use "as" operator. It is safe, it do not throws an    exception.
+
+Constructors in super and sub-classes
+====================================================================
+
+ As per inheritance object hierarchy, super's constructor will be  called before the execution of sub-class's constructor.
+
+
+ class A
+  {
+    public A()
+     {
+        Console.WriteLine("A::NoArg");
+      }
+    public A(int no)
+     {
+        Console.WriteLine("A::IntArg");
+      }
+   }
+ class B : A
+  {
+    public B()
+     {
+        Console.WriteLine("B::NoArg");
+      }
+    public B(int no)
+     {
+        Console.WriteLine("B::IntArg");
+      }
+   public B(string no)
+     {
+        Console.WriteLine("B::StrArg");
+      }
+ }
+
+ Code in Main:
+
+     B x = new B();
+     B y = new B(10);
+     B z = new B("Hello");
+
+ In above example, A's NoArgument constructor will be called whenever  we create an object of "B" class with different constructor  invocation.
+
+ What will happen if class "A" has only "IntArg" constructor? In that case your program wont compile. You must need NoArg constructor in super class or use "base" keyword in sub-class constructor to select appropriate super's constructor.
+
+
+  Syntax:
+
+   class SubClass : SuperClass {
+
+          SubClass() : base([param]) <-- Select base class constructor
+          {}
+    }
+
+Example:
+
+public class Person
+{
+   public int Age {get;set;}
+   public string Name {get;set;}
+   public Person(int Age,string Name) {
+     this.Name = Name;
+     tihs.Age = Age;
+   }
+}
+
+public class Student : Person
+{
+   public string ClassName {get;set;}
+   public Student() : base(0,"") {}
+   public Student(string Name,int Age, string ClassName) :
+          base(Age,Name)
+    {
+
+      this.ClassName = ClassName;
+     }
+}
+
+Code in Main:
+
+ Student s = new Student("Raj",10,"3rd");
+
+
+Example:
+
+class Question 
+{
+   string text;
+   string ans1,ans2,ans3;
+}
+
+class SingleChoice : Question 
+{
+    int userAnswer,correctAnswer;
+}
+class MultiChoice : Question
+{
+     int []userAnswer,[]correctAnswer;
+}
+
+Example: 
+
+class Language {
+    string text;
+}
+class English : Language {}
+class Hindi : Language {}
+class Gujarati : Language{}
+
+
+

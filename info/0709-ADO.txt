@@ -1,0 +1,302 @@
+  MSSQL Server Data Provider
+  --------------------------
+
+  First of all import System.Data.SqlClient namespace and       optionally System.Data.
+
+
+  Presume that we've a database and following table:
+
+     create table emp
+     (
+        eno int primary key,
+        ename varchar(50),
+        edate date
+       )
+ 
+  In order to execute SQL statement via Provider classes, we must   have to build (prepare) ConnectionString. 
+
+  You can obtain connectionString of currenly open database / working database via "Server Explorer + Right Mouse Click + Properies + In Properties window, select "ConnectionString" and copy it.
+
+ Code in Main:
+
+  var CnStr = @"Paste your connection string here";
+
+  using(SqlConnection cn=new SqlConnection(CnStr))
+  {
+   using(SqlCommand cmd = new SqlCommand()) 
+    {
+      var sql = "insert into emp values (@eno,@ename,@edate)";
+      //@eno,@ename and @ename are MSSQL query parameters
+      
+      cmd.Connection = cn; // Set connection reference
+      cmd.CommandText = sql;
+      
+      //Add Parameters
+      cmd.Parameters.AddWithValue("@eno",10);
+      cmd.Parameters.AddWithValue("@ename","Raj");
+      cmd.Parameters.AddWithValue("@edate",DateTime.Parse					("1/1/2002"));
+      //Connect with database
+      cn.Open();
+      //Execute the query
+      cmd.ExecuteNonQuery();
+     }
+   }
+
+ Order of statements inside the second "using" block is not  significant except the connection must be established (call cn.Open()) before the executing the query (calling cmd.ExecuteNonQuery()).
+
+ The "using" statement implicitly call "Dispose" methods (of connect and command objects).
+
+ MSSQL Server query parameter must have @ prefix.
+ MSACCESS also uses @ prefix however you can choose ?
+ Oracle uses : prefix.
+
+Example:1 Update name and date of specified employee (by eno).
+
+...
+...
+ cmd.CommandText = "update emp set ename=@ename, edate = @edate 				where eno=@eno";
+ cmd.Parameters.AddWithValue("@eno", no);
+ cmd.Parameters.AddWithValue("@ename", name);
+ cmd.Parameters.AddWithValue("@edate", date);
+....
+....
+
+Example:2 Delete emp row of given eno.
+...
+...
+ cmd.CommandText = "delete from emp where eno=@eno";
+ cmd.Parameters.AddWithValue("@eno", no);
+....
+....
+
+Example:3 Show all rows of emp table.
+
+To execute SELECT statement, we must have to call cmd.ExecuteReader() method that returns an instance of SqlDataReader class.
+
+Using DataReader methods, we can fetch row one after one (forward and read only).
+
+...
+...
+cmd.CommandText = "select * from emp";
+cmd.Connection = cn;
+
+cn.Open(); // connect
+using(SqlDataReader dr = cmd.ExecuteReader())
+ {
+   while(dr.Read())
+   {
+     Console.WriteLine(dr[0] + " "+ dr["ename"] + " " +dr[2]);
+    //Or use dr.GetInt32(0) for eno
+    //       dr.getString(1) for ename etc
+    //Console.WriteLine(dr.GetInt32(0) + " " + dr.GetString(1) +     // " " + dr.GetDateTime(2));
+    }
+ }
+....
+....
+
+Example:4 Select all emp record whose name begins with "R".
+
+   SELECT * FROM TABLE WHERE columnName like "R%"
+
+Example:5 Select an emp whose eno is 5.
+ [Primary key based search].
+
+...
+...
+cmd.CommandText = "select * from emp where eno=@eno";
+var eno = 5;
+cmd.Connection  =cn; cmd.Parameters.AddWithValue("@eno",eno);
+cn.Open();
+using(var dr = cmd.ExecuteReader())
+{
+  if(dr.Read())
+   {
+     Console.WriteLine(dr[0] + " " + dr[1] + " " + dr[2]);
+    }
+  else
+   {
+     Console.WriteLine("Record not found.");
+   }
+}
+....
+....
+
+
+Database Layer Practice
+==============================================================
+
+ 1. Create CLR object (Plain object) which represent the table
+    structure.
+    public class Emp 
+    {
+       public int EmpNo {get;set;}
+       public string EmpName {get;set;}
+       public DateTime JoinDate {get;set;}
+     }
+ 2. Create Dao (static class) that collects Add,Delete,Update,FindByEmpNo etc methods.
+
+  public class EmpDao 
+  {
+    public static bool Add(Emp emp)
+     {
+         if(EmpDao.FindByEmpNo(emp)) return false;
+
+         //code to insert record and return true
+      }
+    public static bool Update(Emp emp)
+     {
+         if(!EmpDao.FindByEmpNo(emp)) return false;
+
+         //code to update record and return true
+      }    
+    .....
+   }
+3. Code in Main:
+ 
+   Emp emp = new Emp { EmpNo=1,EmpName="Abc", JoinDate = DateTime.Now};
+   if(EmpDao.Add(emp))
+       Console.WriteLine("Added");
+   else
+       Console.WriteLine("Duplicate.");
+
+
+Example:
+
+Config.cs
+---------
+using System;
+namespace dbApp1.Model
+{
+    public class Config
+    {
+        public static string CnStr = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\csnet\C--Language\dbApp1\dbApp1\SampleDb.mdf;Integrated Security=True";
+    }
+}
+
+Emp.cs
+---------
+using System;
+namespace dbApp1.Model
+{
+   public class Emp
+    {
+       public int EmpNo { get; set; }
+       public string EmpName { get; set; }
+       public DateTime JoinDate { get; set; }
+    }
+}
+
+
+EmpDao.cs
+----------
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace dbApp1.Model
+{
+    public class EmpDao
+    {
+        public static bool Add(Emp emp)
+        {
+            if (EmpDao.FindByEmpNo(emp))
+                return false;
+            using (var cn = new SqlConnection(Config.CnStr))
+            using (var cmd = new SqlCommand())
+            {
+                cmd.Connection = cn;
+                cmd.CommandText = "insert into emp values (@p1,@p2,@p3)";
+                cmd.Parameters.AddWithValue("@p1", emp.EmpNo);
+                cmd.Parameters.AddWithValue("@p2", emp.EmpName);
+                cmd.Parameters.AddWithValue("@p3", emp.JoinDate);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+        }
+        public static bool Update(Emp emp)
+        {
+            if (!EmpDao.FindByEmpNo(emp))
+                return false;
+            using (var cn = new SqlConnection(Config.CnStr))
+            using (var cmd = new SqlCommand())
+            {
+                cmd.Connection = cn;
+                cmd.CommandText = "update emp set ename=@p2,edate=@p3 where eno=@p1";
+                cmd.Parameters.AddWithValue("@p1", emp.EmpNo);
+                cmd.Parameters.AddWithValue("@p2", emp.EmpName);
+                cmd.Parameters.AddWithValue("@p3", emp.JoinDate);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+        }
+
+        public static bool FindByEmpNo(Emp emp)
+        {
+            using (var cn = new SqlConnection(Config.CnStr))
+            using (var cmd = new SqlCommand())
+            {
+                cmd.Connection = cn;
+                cmd.CommandText = "select eno from emp where eno=@p1";
+                cmd.Parameters.AddWithValue("@p1", emp.EmpNo);
+
+                cn.Open();
+                using (var dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        public static Emp GetEmp(Emp emp)
+        {
+            using (var cn = new SqlConnection(Config.CnStr))
+            using (var cmd = new SqlCommand())
+            {
+                cmd.Connection = cn;
+                cmd.CommandText = "select * from emp where eno=@p1";
+                cmd.Parameters.AddWithValue("@p1", emp.EmpNo);
+
+                cn.Open();
+                using (var dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        return new Emp
+                        {
+                            EmpNo = dr.GetInt32(0),
+                            EmpName = dr.GetString(1),
+                            JoinDate = dr.GetDateTime(2)
+                        };
+                    }
+
+                }
+                return null;
+            }
+        }
+    }
+}
+
+Code in Main
+===============
+static void Main()
+    {
+        dbApp1.Model.Emp c1 = new dbApp1.Model.Emp() { EmpNo = 102, EmpName = "Ram", JoinDate = DateTime.Now };
+        if (dbApp1.Model.EmpDao.Add(c1))
+            Console.WriteLine("Added");
+        else
+        {
+            Console.WriteLine("Duplicate emp no");
+        }
+
+        dbApp1.Model.Emp result = dbApp1.Model.EmpDao.GetEmp(new dbApp1.Model.Emp { EmpNo = 10 });
+        if (result != null)
+            Console.WriteLine(result.EmpNo + " " + result.EmpName + " " + result.JoinDate);
+    }
+ 

@@ -1,0 +1,208 @@
+TYPES of HTML elements
+==============================================================
+
+ There are two main types of HTML elements:
+
+   1. Block elements - Block elements share the width of their
+			parent or web-browser window.
+                     - We can change height/width of block ele.
+
+   2. Inline elements - Browser computes height/width of inline
+			elements from the content they hold.
+		      - We cannot change height/width manually.
+
+		      - strong, label, em, span, code, kbd, samp,
+			abbr, etc are example of inline.
+
+   And few of HTML elements have combine features - block & inine    called inline-block. These are <input>, select,textarea etc.
+
+
+   CSS  : CSS is a way to instruct the browser to render
+   ====   DOMs as per submitted/glued CSS properties.
+
+   CSS properties group is known as "selector". It is best    practice to create "selectors" into separate "stylesheet"    resource. However you can use <style> HTML tag or <tagName    style=""/> style HTML attribute but these two ways are 
+   highly discouraged.
+
+
+   External CSS resource might be a static file .css or a program
+   which produce dynamic content of CSS selectors.
+
+    To glue CSS resource to your document:
+
+        add following code under <head>
+
+          <link rel="stylesheet" href="url"/>
+
+
+   Selectors
+   ==========
+
+    1. Univeral selector  *  -- Properties glued to all HTML 				elements.
+
+	* {
+          prop1: value;
+          prop2: value;
+          ...
+         }
+ 
+       Note: Do not use this selector because it change 	     properties of all DOMs.
+
+   2. tag selector - HTML standard tagName is used to create a
+		     selector
+
+       body {
+          ....
+       }
+       h1 {
+          ...
+       }
+
+       /* multiple tag selector */
+       html, body, h1, h2 {
+   
+       } 
+
+    3. class selector - Class selector begins with period and                          then user-defined-name (identifier).
+
+			It can be glue using "class" attribute
+			of HTML element.
+
+        .red { color: #f00; }
+        .green { color: #0f0; }
+        .border { border:1px solid #aaa;}
+        
+        <div class="border red">
+            This is red text with border
+        </div>
+        <h1 class="green">Hello</h1>
+
+        Multiple class selectors can be glue to the DOM.
+     4. id selector - User-defined name prefixed with "#"
+
+          #main {
+              ...
+          }
+
+          and it must be glue with "id" attribute of DOM.
+ 
+          <div id="main"></div>
+
+          NOTE: "id" attribute value must be unique because
+		it represent DOM reference and later we can 
+		manipulate the DOM via JavaScript.
+
+     5. group selector
+
+         selector1  selector {
+            .....
+         }     
+		
+
+        e.g
+
+         div a { 
+            color:red;
+         }
+  
+         header a {
+              color:blue;
+          }
+
+          .info .text { color:red;}
+ 
+          .info .link { color:black;}
+
+          <div class="info">
+               <p class="text">Hi</p>
+               <p class="link">Hey</p>
+          </div> 
+          #main #test {}
+          #main .test {}
+
+     6.  selector1+selector2   sibling selector
+
+           set properties for "selector2" if it is               "sibling/spouse"  of "selector1".
+
+           h1+p{ color:red;}
+       
+            <h1>Intro</h1>
+            <p>This will be red color</p>
+            <p>But this will not</p>
+            <h1>Chapter - 1</h1>
+            <p>Red color</p>
+ 
+     7. selector1 > selector2  children selector
+
+        .info > p {}  
+        .info > * {}   /* all chidren */
+
+     8. psuedo selectors
+
+          ::selector -- text selection
+
+           a:active  - active link
+           a:visited  - visited
+           a:link - link
+
+           selector:before 
+           selector:after 
+
+           selector:hover 
+           selector:first-letter
+           selector:first-line
+           selector:first-child
+           selector:nth-child
+
+
+CSS Properties
+==============
+ 
+1. display : none | block | inline | inline-block;
+
+             "none" value will hides an element.
+
+2. float: none | left | right;
+
+              To float elements either left or right edge of its 
+              parent.
+
+3. clear: left | right | both;  To remove float effect.
+
+
+Example:
+
+.float-left { float:left;}
+.float-right { float:right}
+.clear { clear:both}
+
+
+<div class="float-left">A</div>
+<div class="float-right">B</div>
+<div class="float-left">C</div>
+
+<div class="clear"></div> <!--Remove float for rest elements -->
+
+<div class="float-left">Left Part1</div>
+<div class="float-left">Left Part2</div>
+
+4. font-family: "font-name1","font-name2","font-family-fallback";
+ 
+e.g  We've sans-serif, serif, fantasy,monospace and cursive femilies of fonts.
+
+    font-family:"Ubuntu", "Georgia","Arial", sans-serif;
+    /*font-family: "MS Outlook1",'Times New Roman1', serif;*/
+    /*font-family: fantasy;*/
+    /*font-family:monospace;*/
+    /*font-family:cursive;*/
+
+5. font-size: em or %;  NEver use px , pt , cm (centimetre), in              (inch) to set font-size.
+
+            Always use em or %
+
+            1em equals to 100%;
+            1.2em = 120%;
+
+
+6. text-shadow: xPos yPost blurValue #color;
+6. box-shadow: xPos yPost blurValue #color;
+
