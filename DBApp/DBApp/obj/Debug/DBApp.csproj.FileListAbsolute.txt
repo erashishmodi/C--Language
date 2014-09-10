@@ -1,0 +1,8 @@
+C:\Ashish\DBApp\DBApp\bin\Debug\DBApp.exe.config
+C:\Ashish\DBApp\DBApp\bin\Debug\DBApp.exe
+C:\Ashish\DBApp\DBApp\bin\Debug\DBApp.pdb
+C:\Ashish\DBApp\DBApp\obj\Debug\DBApp.csprojResolveAssemblyReference.cache
+C:\Ashish\DBApp\DBApp\obj\Debug\DBApp.exe
+C:\Ashish\DBApp\DBApp\obj\Debug\DBApp.pdb
+C:\Ashish\DBApp\DBApp\bin\Debug\StudentDB.mdf
+C:\Ashish\DBApp\DBApp\bin\Debug\StudentDB_log.ldf
