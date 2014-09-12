@@ -6,9 +6,10 @@ namespace DBApp
 {
     class Program
     {
-        public static void Main()
+        
+        public static void Main0()
         {
-            var cnstr = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Ashish\DBApp\DBApp\StudentDB.mdf;Integrated Security=True";
+            var cnstr = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Ashish\Documents\GitHub\C--Language\DBApp\DBApp\StudentDB.mdf;Integrated Security=True";
             using(SqlConnection con=new SqlConnection(cnstr))
             {
                 using(SqlCommand cmd=new SqlCommand())
@@ -16,7 +17,7 @@ namespace DBApp
                     var sql = "delete from student where id=@sid";
                     cmd.CommandText=sql;
                     cmd.Connection=con;
-                    cmd.Parameters.AddWithValue("@sid", 12);
+                    cmd.Parameters.AddWithValue("@sid",29);
                     con.Open();
                     cmd.ExecuteNonQuery();
 

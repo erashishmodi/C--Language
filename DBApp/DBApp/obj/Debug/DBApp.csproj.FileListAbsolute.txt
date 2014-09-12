@@ -6,3 +6,11 @@ C:\Ashish\DBApp\DBApp\obj\Debug\DBApp.exe
 C:\Ashish\DBApp\DBApp\obj\Debug\DBApp.pdb
 C:\Ashish\DBApp\DBApp\bin\Debug\StudentDB.mdf
 C:\Ashish\DBApp\DBApp\bin\Debug\StudentDB_log.ldf
+C:\Users\Ashish\Documents\GitHub\C--Language\DBApp\DBApp\bin\Debug\DBApp.exe.config
+C:\Users\Ashish\Documents\GitHub\C--Language\DBApp\DBApp\obj\Debug\DBApp.exe
+C:\Users\Ashish\Documents\GitHub\C--Language\DBApp\DBApp\obj\Debug\DBApp.pdb
+C:\Users\Ashish\Documents\GitHub\C--Language\DBApp\DBApp\bin\Debug\StudentDB.mdf
+C:\Users\Ashish\Documents\GitHub\C--Language\DBApp\DBApp\bin\Debug\StudentDB_log.ldf
+C:\Users\Ashish\Documents\GitHub\C--Language\DBApp\DBApp\bin\Debug\DBApp.exe
+C:\Users\Ashish\Documents\GitHub\C--Language\DBApp\DBApp\bin\Debug\DBApp.pdb
+C:\Users\Ashish\Documents\GitHub\C--Language\DBApp\DBApp\obj\Debug\DBApp.csprojResolveAssemblyReference.cache
