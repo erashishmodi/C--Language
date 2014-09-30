@@ -13,7 +13,7 @@ Program structure of C#
 	    enum,struct and deligates.
 
 
-Naming convetios
+Naming convetions
 =================
 -->In .NET environment We should follow the following guideliness to name our entities.
 	
