@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Add Catagory
+    </title>
+</head>
+<body>
+    @using (Html.BeginForm("AddCategory", "Home", FormMethod.Post, new { enctype="mltipart/form-data"}))
+    {
+        <input type="file" name="file" />
+        <input type="submit" name="cmd" value="Upload" />
+    }
+</body>
+</html>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UploadFile.Models;
 
 namespace UploadFile.Controllers
 {
@@ -18,19 +19,46 @@ namespace UploadFile.Controllers
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase file)
         {
-            if(file!=null)
+            if (file != null)
             {
-                
-                var path = Server.MapPath("~/Files/"+file.FileName);
+
+                var path = Server.MapPath("~/Files/" + file.FileName);
                 file.SaveAs(path);
-                ViewBag.Message = file.FileName + " of " + file.ContentType + " type and " + file.ContentLength + " of size is uploaded";                
+                ViewBag.Message = file.FileName + " of " + file.ContentType + " type and " + file.ContentLength + " of size is uploaded";
             }
-           
+
             return View();
         }
 
         [HttpGet]
-        public ActionResult Addcat
+        public ActionResult Addcategory()
+        {
+            ProductDbEntities db = new ProductDbEntities();
+            ViewBag.Category = db.Categories.ToList();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Addcategory(CategoryModel model)
+        {
+            var file = Request.Files["poto"];
+            ProductDbEntities db = new ProductDbEntities();
+            if (file == null)
+            {
+                ViewBag.Message = "Please select a file";
+                return View();
+            }
+            if (file.ContentType != "image/png")
+            {
+                ViewBag.Message = "Select .png file";
+                return View();
+            }
+            if(file.ContentLength>50*1024)
+            {
+                ViewBag.Message = "File shuld be less than 50kb";
+                return View();
+            }
+            return View();
+        }
 
     }
 }
