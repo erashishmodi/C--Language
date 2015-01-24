@@ -1,1 +1,0 @@
-http://improve.dk/compiling-java-in-visual-studio/
