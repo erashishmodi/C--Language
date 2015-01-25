@@ -57,6 +57,16 @@ namespace UploadFile.Controllers
                 ViewBag.Message = "File shuld be less than 50kb";
                 return View();
             }
+            Category category = new Category();
+            category.Name = model.Name;
+            category.Id = model.Id;
+            db.Categories.Add(category);
+            db.SaveChanges();
+
+            var filename = category.Id + ".png";
+            var path = Server.MapPath("~/Files/Images/"+filename);
+            file.SaveAs(path);
+            ViewBag.Message = "Record Added";
             return View();
         }
 

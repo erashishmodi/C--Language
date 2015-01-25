@@ -6,10 +6,28 @@
     </title>
 </head>
 <body>
-    @using (Html.BeginForm("AddCategory", "Home", FormMethod.Post, new { enctype="mltipart/form-data"}))
-    {
+    @model UploadFile.Models.CategoryModel
+   @using (Html.BeginForm("AddCategory", "Home", FormMethod.Post, new { enctype = "mltipart/form-data" }))
+{
+      @* @Html.EditorFor(x=>x.Name)
         <input type="file" name="file" />
         <input type="submit" name="cmd" value="Upload" />
-    }
+          *@
+  
+    
+    
+    
+     @*  <select>
+            @foreach(var c in ViewBag.Category)
+            {
+                <option>@c.Name</option>                
+            }
+       </select>
+       <input type="file" name="file" />
+        <input type="submit" name="cmd" value="Upload" />
+  *@
+}
+    @ViewBag.Message
 </body>
+    
 </html>
