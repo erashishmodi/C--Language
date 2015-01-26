@@ -1,0 +1,128 @@
+/* resetting the page to prevent surprised out put over the change of the browser*/
+body,h1,h2,h3,h4,h5,h6,div,header,footer,section,article{
+    margin: 0;
+}
+/*set the heading portion here*/
+body{
+    background-color: LIGHTCYAN;
+}
+#page{
+    padding: 0px;
+    margin: 0px;    
+}
+
+.page-head{
+    background-color: SEAGREEN;
+    color: #ffffff;
+    margin: 15px;
+    padding-top: 20px;
+    padding-left:20px;
+    padding-right: 20px;
+    
+}
+.box-radius{
+    border-radius:7px;
+}
+header nav{
+    width: 50%;
+    margin: auto;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+header nav ul{
+    margin-bottom: 0px;
+}
+.cursive-text{
+    font-family: cursive;
+}
+header nav ul li{
+    font-size: 25px;
+    display: inline;
+    padding: 15px;
+    padding-bottom: 0px;
+}
+header nav ul li a{
+    color:#F0F8FF;
+    text-decoration:none;
+    text-shadow: 2px -1px 15px rgba(255, 255, 255, 0.50);
+}
+.white-shadow-text{
+    text-shadow: 0px -5px 30px rgba(255, 255, 255, 1);
+}
+
+header nav ul li a:hover{
+    color: #ffffff;
+     text-shadow: 0px -5px 30px rgba(255, 255, 255, 1);
+}
+.page-main-section{
+    background-color:DARKSEAGREEN
+; 
+    padding: 30px 30px;
+    margin: 15px;
+}
+
+.page-footer{
+    padding-top: 10px;
+    background-color:SEAGREEN; 
+    height: 30px;
+    margin: 15px;
+}
+
+.light-grey-background{
+    background-color:lightgrey; 
+}
+.silever-background{
+    background-color: silver;
+}
+.dark-gray-background{
+    background-color:darkgrey;
+}
+.copyright{
+    color: azure;
+    font-size: 9px;
+    text-align: center;
+}
+
+
+.article{
+    background-color:transparent;
+    width: 70%;
+    padding: 5px;    
+}
+
+.article-section{
+    background-color: MEDIUMSEAGREEN;
+    padding: 10px;
+    margin:5px;
+    
+}
+.article-header{
+    background-color: SEAGREEN;
+    color: #ffffff;
+    margin:5px;
+    padding: 10px;
+    text-align: center;    
+}
+
+.article-footer{
+    background-color: SEAGREEN;
+    margin:5px;
+    padding: 5px;
+    text-align: center;
+}
+
+.paragraph{
+    color: white;
+    text-align: justify;
+    font-size: 1.2em;
+    font-style: italic;
+    margin:5px;
+}
+.margin-left{
+    margin-left: 20px;
+}
+.first-char{
+    font-style: normal;
+    font-weight: bolder;
+    font-size: 1.5em;
+}

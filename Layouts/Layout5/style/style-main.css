@@ -1,0 +1,189 @@
+body,h1,h2,h3,h4,h5,h6,div,header,footer,section,article{
+    margin: 0;
+}
+/*set the heading portion here*/
+body{
+    background-color: #e0e0e0;
+}
+#page{
+    padding: 0px;
+    margin:auto;
+    width: 1000px;   
+}
+.page-head{
+    position: fixed;
+    top: 0;
+    height: 100px;
+    width: 960px;
+    background-color:#1c4a26;
+    color: #ffffff;
+    padding-top: 20px;
+    padding-left:20px;
+    padding-right: 20px;    
+}
+.box-radius{
+    border-radius: 11px;
+}
+header nav{
+    float: right;
+    width: 50%;
+    margin-left: 200px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+header nav ul{
+    margin-bottom: 0px;
+}
+.cursive-text{
+    font-family: cursive;
+}
+header nav ul li{
+    font-size: 25px;
+    display: inline;
+    padding: 15px;
+    padding-bottom: 0px;
+}
+header nav ul li a{
+    color:#F0F8FF;
+    text-decoration:none;
+    text-shadow: 2px -1px 15px rgba(255, 255, 255, 0.50);
+}
+.white-shadow-text{
+    text-shadow: 0px -5px 30px rgba(255, 255, 255, 1);
+}
+header nav ul li a:hover{
+    background-color: transparent;
+    color: #ffffff;
+     text-shadow: 0px -5px 30px rgba(255, 255, 255, 1);
+}
+#page section{
+    clear: both;
+    font-family: Lucida Lucida Calligraphy;
+    font-style: italic;
+    font-synthesis: weight;    
+    font-size: 1.2em;
+    padding: 25px;
+    line-height: 30px;
+    padding-top: 30px;
+    background-color:#FFFFF0;
+    height: 200px;
+    margin-top: 100px;
+    height: auto;
+}
+#page footer{
+    padding: 10px;
+    background-color:#1c4a26; 
+    height: 30px;
+}
+.light-grey-background{
+    background-color:lightgrey; 
+}
+.silever-background{
+    background-color: silver;
+}
+.dark-gray-background{
+    background-color:darkgrey;
+}
+.copyright{
+    color: snow;
+    font-size: 9px;
+    text-align: center;
+}
+.paragraph{
+    margin-bottom: 30px;
+    text-align: justify;
+}
+fieldset{
+    border: none;
+    min-width:50%;
+}
+form li{
+    list-style: none;
+    margin-bottom: 15px;    
+}
+form label{
+    margin-left: 0;
+    display:inline-flex;
+    background-color: #FFF8DC;
+    width: 175px;
+    padding: 5px;
+    color:#696969;
+    font-size: 1.1em;    
+}
+form input[type="text"],input[type="email"]{
+    color:#696969;
+    text-align: left;
+    margin-left:0px;
+    height: 20px;
+    width: 220px;
+    border: none;
+    background-color: transparent;
+    height: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #696969;
+    font-family: Lucida Lucida Calligraphy;
+    font-style: italic;
+    font-size: 1em;
+    
+}
+form input[type="text"]:focus,input[type="email"]:focus{
+    color:#696969;
+    text-align: left;
+    margin-left:0px;
+    height: 20px;
+    width: 220px;
+    border: none;
+    background-color: transparent;
+    height: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #696969;
+    font-family: Lucida Lucida Calligraphy;
+    font-style: italic;
+    font-size: 1em;
+    box-shadow: 1px 0px 20px #708090;
+}
+.paragraph-first-charecter{
+    margin-left: 35px;
+    font-size: 2em;
+}
+
+form legend{
+    font-family: Lucida Lucida Calligraphy;
+    font-style: italic;
+    font-size: 1.1em;
+    color: #1c4a26;
+    font-weight: bold;
+}
+form input[type="checkbox"]{
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    backface-visibility: hidden;
+}
+
+form textarea{
+    width: 200px;
+    height: 200px;
+    background-color: transparent;
+    box-shadow: inset 1px 1px 30px #696969,1px 1px 30px #696969;
+    font-family:Lucida Lucida Calligraphy;
+    color: #696969;
+    font-size: 1.2em;
+    border: 0;
+    border-bottom-style: none;
+    border-color: transparent;
+    text-align: left;    
+}
+
+form input[type="submit"]{
+    padding: 15px 25px;
+    background-color:steelblue;
+    color: white;
+    border-style: none;
+    margin-left: 9em;
+    box-shadow: inset 0px 0px 20px #FFFFFF,1px 1px 20px #696969;
+    font-family:consolas;
+    font-weight: bold;
+    font-size: 1em;
+    
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home </title>
+	<link href="style/style-main.css" type="text/css" rel="stylesheet">
+    	<link href="style/form-style.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+	<div id="page"><!--The Starting of main page -->
+		<header class="page-head box-radius"><!--starts the page header-->
+			<h1 class="white-shadow-text cursive-text">This is the  Heading</h1>
+			<nav>
+				<ul class="cursive-text">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">About</a></li> 
+					<li><a href="#">Contact</a></li>
+					<li><a href="#">Other</a></li>
+				</ul>
+			</nav>
+		</header><!--ends the page header-->
+		<section class="page-main-section box-radius"><!--This is the main section here the information related to page 
+should be here(body of page)-->
+			<article class="article"><!--Starting of the article-->
+				<section class="article-section box-radius"><!--Start the section of the article-->
+                    <form method="post" action="mailto:kvp@avd.infotech">
+                <ul>
+                    <fieldset>
+                        <legend>Your Personal Details</legend>
+                    <li>
+                        <label for="name">Enter Your Name </label>
+                        <input type="text" class="textbox" name="name" id="name" placeholder="Enter Name here..">
+                    </li>
+                    <li>
+                        <label for="email">Enter Your Email Id </label>
+                        <input type="email" name="email" id="email" placeholder="Your Email Address">
+                    </li>
+                    </fieldset>
+                    <fieldset>
+                        <legend>I'm Intrested For</legend>
+                        <li>
+                            <input type="checkbox" name="moreinfo" id="moreinfo" value="moreinfo"><label for="moreinfo">More Information</label> 
+                        </li>
+                        <li>
+                            <input type="checkbox" name="training" id="training" value="training"><label for="training">Training Inquiry</label> 
+                        </li>
+                        <li>
+                            <input type="checkbox" name="appointment" id="appointment" value="appointment"><label for="appointment">Appointment</label> 
+                        </li>
+                        <li>
+                            <label for="comment">Comment</label>
+                            </li>
+                        <li><textarea rows="5" cols="5" name="comment" class="box-radius" id="comment">
+                        </textarea>
+                        </li>
+                    </fieldset>
+                    <input type="submit" class="box-radius white-shadow-text" value="Send">
+                </ul>            
+            </form>    
+				</section><!--Ends the section of the article-->
+				
+			</article><!--ends the article it self-->
+            
+            
+		</section><!--End of the Main Section-->
+
+		<footer class="page-footer box-radius"><!--The page footer sarts-->
+			<p class="copyright">
+			This is page is created for parctice during training(2014-2015) &#64; avd&reg; infotech&trade;
+			</p>
+		</footer><!--Ends the page footer-->
+	</div><!--This is the ending of the main page her-->
+</body>
+</html>

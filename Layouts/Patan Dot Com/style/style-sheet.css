@@ -1,0 +1,108 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: cursiveHelverika,verdana,Arial,sans-serif;
+}
+
+header{
+    background-color: #363f45;   
+}
+section{
+    width: 600px;
+    float: left;
+    background-color: white;    
+}
+footer{
+    clear: both;
+    background-color:#feb41c;
+    height: 30px;
+    padding: 10px;
+}
+p,h1,h2,h3,h4,h5,h6
+{
+    padding-left: 15px;
+    padding-right: 15px;    
+}
+
+#page{
+    margin:0 auto;
+    width: 800px;
+    background-color:#5e7c88; 
+}
+
+nav ul li{
+    display: inline;
+}
+nav ul li a{
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+
+.imageleft
+{
+    float: left;
+    padding-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-bottom:15;
+}
+.imageright
+{
+    float: right;
+    margin-left: 15px;
+    margin-top: 15px;
+    margin-bottom:15;
+}
+p{
+    font-size:14px;
+}
+
+h1{
+    font-size:22px;
+    color: #363f45;
+}
+h2{
+    font-size:18px;
+    color:#5e7c88;
+}
+h3{
+    font-size:16px;
+    
+}
+
+blockquote{
+    font-size: 16px;
+    text-align: center;
+    font-style: italic;
+    width: 160px;
+    margin-left: 20px;
+    margin-right: 20px;
+    float: right;
+    padding-top: 150px;    
+}
+.copyright{
+    font-size: 9px;
+    text-align: center;
+}
+
+.popout{
+    font-size: 16px;
+    font-weight: bold;
+}
+a:hover{
+color:#feb41c ;
+    text-decoration: none;
+}
+table{
+    margin :auto;
+}
+caption{
+    color:#5e7c88;
+    font-size: 18px;
+    font-weight:bold;
+}
+th,td{
+    padding: 4px;
+}

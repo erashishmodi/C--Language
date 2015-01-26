@@ -1,0 +1,103 @@
+form,label,input[type="text"],input[type="checkbox"]
+{
+    margin: 0;
+    padding: 0;
+}
+form li{
+    margin: 5px;
+    list-style: none;
+}
+
+form{
+    margin: 0;
+    padding: 0;
+}
+form legend{
+    font-size: 1.1em;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+}
+
+form fieldset{
+    border-style: none;
+    border-top: 1px solid #ffffff;
+}
+
+
+form label{
+    margin-left: 0;
+    display:inline-flex;
+     background-color: SEAGREEN;
+    width: 175px;
+    padding: 5px;
+    color: #ffffff;
+    font-size: 1.1em;    
+}
+form input[type="text"],input[type="email"]{
+    color:#696969;
+    text-align: left;
+    margin-left:0px;
+    height: 20px;
+    width: 220px;
+    border: none;
+    background-color: transparent;
+    height: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #696969;
+    font-family: Lucida Lucida Calligraphy;
+    font-style: italic;
+    font-size: 1em;
+    
+}
+form input[type="text"]:focus,input[type="email"]:focus{
+    color:#696969;
+    text-align: left;
+    margin-left:0px;
+    height: 20px;
+    width: 220px;
+    border: none;
+    background-color: transparent;
+    height: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #696969;
+    font-family: Lucida Lucida Calligraphy;
+    font-style: italic;
+    font-size: 1em;
+    box-shadow: 1px 0px 20px #708090;
+}
+
+form input[type="checkbox"]{
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    backface-visibility: hidden;
+}
+
+form textarea{
+    width: 200px;
+    height: 200px;
+    background-color: transparent;
+    box-shadow: inset 1px 1px 30px #696969,1px 1px 30px #696969;
+    font-family:Lucida Lucida Calligraphy;
+    color: #696969;
+    font-size: 1.2em;
+    border: 0;
+    border-bottom-style: none;
+    border-color: transparent;
+    text-align:left;    
+}
+
+form input[type="submit"]{
+    padding: 15px 25px;
+    background-color:SEAGREEN;
+    color: white;
+    border-style: none;
+    margin-left: 9em;
+    box-shadow: inset 0px 0px 20px #FFFFFF,1px 1px 20px #696969;
+    font-family:consolas;
+    font-weight: bold;
+    font-size: 1em;
+    
+}
