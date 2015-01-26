@@ -6,7 +6,7 @@ C--Language
 
 Program structure of C#
 =======================
--> The c# program is created in to a compliant unit.Different contents are in given order.
+=> The c# program is created in to a compliant unit.Different contents are in given order.
 	(1) Importing the namspace(s).
 	(2) Creating the user defined namespaces.
 	(3) Within the namespace(user defined) we can add one or more type definations including class,interface,
@@ -15,7 +15,7 @@ Program structure of C#
 
 Naming convetions
 =================
--->In .NET environment We should follow the following guideliness to name our entities.
+=>In .NET environment We should follow the following guideliness to name our entities.
 	
 	(1) Namespace name must be in pascle case.( e.g namespace MyData).
 	(2) Type name also be in the pascle case. (e.g class MyDataClass).
