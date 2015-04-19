@@ -1,0 +1,46 @@
+/*
+	* This is the starting of our site.css
+*/
+body,p,html,head,h1,h2,h3,h4,h5,h6,div,aside,header,section,footer{
+	padding: 0;
+	margin: 0;
+}
+body{
+	background-color: #F2F2F2;
+}
+#main-page{
+    margin:0 auto;
+    width: 1200px;   
+    padding: 5px;
+}
+.head-bar{
+}
+.left-side-bar{
+	float:left;
+	width:200px;	
+}
+.page-content{
+	float: left;
+	width:690px;	
+}
+.right-side-bar{
+	float:left;
+	width:300px;	
+}
+.footer-bar{
+	clear: both;	
+}
+.border-u{
+	border-top: 1px solid #D8D8D8;
+}
+
+.border-l{
+	border-left: 1px solid #D8D8D8;
+}
+
+.border-r{
+	border-right: 1px solid #D8D8D8;
+}
+.border-d{
+	border-bottom: 1px solid #D8D8D8;
+}
