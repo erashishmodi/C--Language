@@ -9,8 +9,6 @@ namespace UploadFile.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
         [HttpGet]
         public ActionResult Index()
         {
@@ -21,15 +19,12 @@ namespace UploadFile.Controllers
         {
             if (file != null)
             {
-
                 var path = Server.MapPath("~/Files/" + file.FileName);
                 file.SaveAs(path);
                 ViewBag.Message = file.FileName + " of " + file.ContentType + " type and " + file.ContentLength + " of size is uploaded";
             }
-
             return View();
         }
-
         [HttpGet]
         public ActionResult Addcategory()
         {
