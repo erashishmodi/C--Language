@@ -3,7 +3,6 @@ body{
     padding: 0;
     font-family: cursiveHelverika,verdana,Arial,sans-serif;
 }
-
 header{
     background-color: #363f45;   
 }
@@ -23,13 +22,11 @@ p,h1,h2,h3,h4,h5,h6
     padding-left: 15px;
     padding-right: 15px;    
 }
-
 #page{
     margin:0 auto;
     width: 800px;
     background-color:#5e7c88; 
 }
-
 nav ul li{
     display: inline;
 }
@@ -38,8 +35,6 @@ nav ul li a{
     text-decoration: none;
     padding: 10px 15px;
 }
-
-
 .imageleft
 {
     float: left;
@@ -58,7 +53,6 @@ nav ul li a{
 p{
     font-size:14px;
 }
-
 h1{
     font-size:22px;
     color: #363f45;
@@ -68,10 +62,8 @@ h2{
     color:#5e7c88;
 }
 h3{
-    font-size:16px;
-    
+    font-size:16px;    
 }
-
 blockquote{
     font-size: 16px;
     text-align: center;
@@ -86,13 +78,12 @@ blockquote{
     font-size: 9px;
     text-align: center;
 }
-
 .popout{
     font-size: 16px;
     font-weight: bold;
 }
 a:hover{
-color:#feb41c ;
+    color:#feb41c ;
     text-decoration: none;
 }
 table{
