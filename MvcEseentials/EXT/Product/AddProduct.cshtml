@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@model SpaSystem.Areas.Admin.Models.ProductViewModel
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title"> @ViewBag.Title</h2>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("AddProduct","Product",FormMethod.Post,new{enctype="multipart/form-data"}))
+            {
+               
+                    <p>
+                        @Html.LabelFor(x => x.CategoryId, "Select Category")
+                        @Html.DropDownListFor(x => x.CategoryId, SpaSystem.Areas.Admin.Models.ProductViewModel.GetCategory(), "Select  Category", new {@class="form-control" })
+                        @Html.ValidationMessageFor(x => x.CategoryId)
+                    </p>
+                    <p>
+                        @Html.LabelFor(x => x.UnitId, "Select Unit")
+                        @Html.DropDownListFor(x => x.UnitId, SpaSystem.Areas.Admin.Models.ProductViewModel.GetUnit(), "Select Unit", new {@class="form-control" })
+                        @Html.ValidationMessageFor(x => x.UnitId)
+                    </p>
+
+                    <p>
+                        @Html.LabelFor(x => x.ProductName)
+                        @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control", placeholder = "Product Name" })
+                        @Html.ValidationMessageFor(x => x.ProductName)
+                    </p>
+                        <p>
+                            @Html.Label("Select Image", new {@class="control-label",@for="photo" })
+                            <input type="file" name="photo" id="photo" class="form-control" />
+                       </p>
+
+                    <p>
+                        @Html.LabelFor(x => x.ProductDescription)
+                        @Html.TextAreaFor(x => x.ProductDescription, new {@class="form-control",placeholder="Detail Description Of Product" })
+                        @Html.ValidationMessageFor(x => x.ProductDescription)
+                    </p>
+                    <p>
+                        <input type="submit" class="btn btn-primary" value="Add Product" />
+                        <h4 class="text-success text-center">@ViewBag.Message</h4>
+                    </p>
+                <p> <a href="~/Admin/Product/EditProduct" class="btn btn-info form-control">Show Products</a></p>
+
+            }
+          </div>
+        </div>
+    </div>
+  

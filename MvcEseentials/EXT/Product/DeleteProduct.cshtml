@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Delete Product";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+@model SpaSystem.Areas.Admin.Models.ProductViewModel
+
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">@ViewBag.Title</h2>
+        </div>        
+        <div class="panel-body">
+            <h3 class="alert alert-warning text-center">Be Sure To Delete This Record</h3>
+            <div class="row  text-center">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover table-striped table-responsive">
+                            <tr>
+                                <td>Product Id</td>
+                                <td>@Html.DisplayFor(x => x.ProductId)</td>
+                            </tr>
+                            <tr>
+                                <td>Product Image</td>
+                                <td><div class="col-md-offset-4"><img src="~/Files/Images/Product/@(Model.ProductId+".jpg")" alt="@Model.ProductName" class="img-responsive"></div></td>
+                            </tr>
+                            <tr>
+                                <td>Product Name</td>
+                                <td>@Html.DisplayFor(x => x.ProductName)</td>
+                            </tr>
+                            <tr>
+                                <td>Category</td>
+                                <td>@SpaSystem.Areas.Admin.Models.CategoryBao.GetCategoryNameByCategoryId(Model.CategoryId)</td>
+                            </tr>
+                            <tr>
+                                <td>Unit</td>
+                                <td>@SpaSystem.Areas.Admin.Models.UnitBao.GetUnitNameByUnitId(Model.UnitId)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <p>
+                    <div class="col-md-6">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.HiddenFor(x => x.ProductId)
+                            <input type="submit" class="btn btn-danger form-control" onclick="return(confirm('Are You Sure to delete @Model.ProductName ?'))" value="Delete" />
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <a href="~/Admin/Product/EditProduct" class="btn btn-info form-control">Cancel</a>
+                    </div>
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

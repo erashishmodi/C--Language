@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+@model SpaSystem.Areas.Admin.Models.ProductViewModel
+<div class="row">
+    <div class="panel  panel-primary">
+        <div class="panel-heading">
+            <h4>@ViewBag.Title</h4>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new {enctype="multipart/form-data" }))
+            {                              
+                    @Html.HiddenFor(x => x.ProductId)
+                    <p>
+                        @Html.LabelFor(x => x.CategoryId, "Category Name")
+                        @Html.DropDownListFor(x => x.CategoryId, SpaSystem.Areas.Admin.Models.ProductViewModel.GetCategory(), new { @class = "form-conrol" })
+                        @Html.ValidationMessageFor(x => x.CategoryId)
+                    </p>
+                    <p>
+                        @Html.LabelFor(x => x.UnitId, "Unit Name")
+                        @Html.DropDownListFor(x => x.UnitId, SpaSystem.Areas.Admin.Models.ProductViewModel.GetUnit(), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.UnitId)
+                    </p>
+                    <p>
+                        @Html.LabelFor(x => x.ProductName)
+                        @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.ProductName)
+                    </p>
+                    <p>
+                        <label for="photo" class="control-label"><span class="glyphicon glyphicon-upload"></span> Upload Image</label>
+                        <input type="file" class="form-control " id="photo" name="photo" src="~/Files/Images/Product/@(Model.ProductId+".jpg")"/>
+                    </p>
+                    <p>
+                        @Html.LabelFor(x => x.ProductDescription)
+                        @Html.TextAreaFor(x => x.ProductDescription, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.ProductDescription)
+                    </p>
+                    <p>
+                        <input type="submit" class="btn btn-primary" value="Update Product" />
+                        <h3 class="text-success">@ViewBag.Message</h3>
+                        <a href="~/Admin/Product/Index" class="btn btn-default col-md-offset-10">Back</a>
+
+                    </p>                
+            }
+            </div>
+        </div>
+    </div>
