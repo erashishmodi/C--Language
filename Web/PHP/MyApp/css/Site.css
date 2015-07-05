@@ -1,0 +1,15 @@
+.border-left{
+  border-left: 1px solid #708090;
+}
+.border-right{
+  border-right: 1px solid #708090;
+}
+.border-bottom{
+  border-bottom: 1px solid #708090;
+}
+.border-top{
+  border-top: 1px solid #708090;
+}
+body{
+  height: 1500px;
+}
