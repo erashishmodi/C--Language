@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    <div>
+        <p>
+            <input type="hidden" id="id" />
+        </p>
+        <p>
+            <label for="name">Name</label>            
+            <input type="text" name="name" id="name" />
+        </p>
+        <p>
+            <button onclick="saved()">SAVE</button>
+        </p>
+        <p>
+            <button onclick="update()">UPDATE</button>
+        </p>
+        <p>
+            <span id="message"></span>
+        </p>
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>NAME</td>
+                    <td colspan="2">ACTION</td>
+                </tr>
+            </thead> 
+            <tbody id="da">
+            </tbody>          
+        </table>
+        <ul id="d"></ul>
+    </div>
+    <script>
+        $.get("/api/student", function (r) {
+            for (var i in r) {
+                var td1 = $("<td>").text(r[i].Id);
+                var td2 = $("<td>").text(r[i].Name);
+                var td3 = $("<td>").html("<a href='#' OnClick='getdt(" + r[i].Id + ")'>Edit</a>");
+                var td4 = $("<td>").html("<a href='#' OnClick='deleteStudent(" + r[i].Id + ")'>Delete</a>");
+                var tr = $("<tr>").append(td1).append(td2).append(td3).append(td4);
+                $("#da").append(tr);
+            }            
+        });
+        function saved() {
+            var d = {};
+            d.Name = $("#name").val();
+            $.post("/api/Student", d, function (e) {
+                $("#message").html(e);
+            });
+        }
+        function getdt(id) {
+            $.get("/api/student/" + id, function (e) {
+                $("#name").val(e.Name);
+                $("#id").val(e.Id);
+            });
+        }
+        function update() {
+            var d = {};
+            d.Id = $("#id").val();
+            d.Name = $("#name").val();
+            $.ajax({
+                connection: "keep-alive",
+                url: "api/Student/",
+                dataType: "text/json",
+                type: "PUT",
+                data: d
+            });
+        }
+        function deleteStudent(arg) {           
+            $.ajax({
+                connection: "keep-alive",
+                url: "api/Student/"+arg,
+                type: "delete",
+                datatype:"text/json"
+            });
+        }
+    </script>
+</body>
+</html>
