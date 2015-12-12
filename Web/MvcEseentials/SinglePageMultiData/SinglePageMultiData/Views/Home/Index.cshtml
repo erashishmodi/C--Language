@@ -1,0 +1,96 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    <div>
+        <form>
+            <p>
+                <label for="name">Name</label>
+                <input type="text" name="name" placeholder="Enter Name" id="name" /><br />
+            </p>
+            <p>
+                <label for="description">Description</label>
+                <input type="text" name="description" placeholder="Enter Description" id="description" /><br />
+            </p>
+            <button type="button" onclick="addCategory();">Add</button>            
+        </form>
+    </div>
+    <div>
+        <table id="dataGrid">            
+        </table>
+    </div>
+    <script>
+        var categoryList = [];
+
+        //Function created for add the category object to the list of category from the form.
+        function addCategory() {
+            var category = {};                              //initializing the category object with nll value.
+            category.Id = categoryList.length;              //composing the category object with nll value.
+            category.Name = $("#name").val();               //composing the category object with nll value.
+            category.Description = $("#description").val(); //composing the category object with nll value.
+            categoryList.push(category);                    //pusht the object to the category List.
+            $("#name").val("");                             //clean the form element.
+            $("#description").val("");                      //clean the form element.
+            fillGrid();                                     //call to fillGrid function to populate the grid.            
+        }
+        //This function will send the list of objects to the server to add the list  of records to the server.
+        function createAllCategories()
+        {
+            var data = {};
+            data.categoryList = categoryList;
+            $.post("/Home/Create", data, function (result) {
+                console.log(result);
+            });
+        }
+        //This function will populate the data from the list of category to the grid.
+        function fillGrid() {
+            var dataGrid = $("#dataGrid");      //Id of the data grid.
+            dataGrid.empty();
+            //Prepare the thead for data grid.
+            var thead = $("<thead>");
+            var tr = $("<tr>");
+            var tdFirst = $("<td>").html("Name");
+            var tdSecond = $("<td>").html("Description");
+            var tdThird = $("<td>").html("Action");
+            tr.append(tdFirst);
+            tr.append(tdSecond);
+            tr.append(tdThird);
+            thead.append(tr);
+            dataGrid.append(thead);           
+            //Preparing the tbody for the data grid.
+            var tbody = $("<tbody>");
+            for(var item in categoryList)
+            {                
+                var tr = $("<tr>");
+                var tdFirst = $("<td>");
+                tdFirst.html("<input type='text' id='editName" + item + "' value='" + categoryList[item].Name + "'>");
+                var tdSecond = $("<td>");
+                tdSecond.html("<input type='text' id='editDescription" + item + "' value='" + categoryList[item].Description + "'>");
+                var tdThird = $("<td>");
+                tdThird.html("<button type='button' onclick='updateCategory(" + item + ")'>Update</button");
+                tr.append(tdFirst);
+                tr.append(tdSecond);
+                tr.append(tdThird);
+                tbody.append(tr);
+            }
+            tbody.append($("<tr>").append($("<td>").html("<button onclick='createAllCategories();'>Add All</button>")));
+            dataGrid.append(tbody);            
+        }
+        //Update the records on the click of the update button.
+        function updateCategory(itemId) {
+            var category = {};
+            category.Id = itemId;
+            category.Name = $("#editName"+itemId).val();
+            category.Description = $("#editDescription" + itemId).val();
+            categoryList.splice(itemId, 1, category);
+        }
+    </script>
+</body>
+</html>
