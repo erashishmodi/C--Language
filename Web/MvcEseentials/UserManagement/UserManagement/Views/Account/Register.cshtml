@@ -1,0 +1,70 @@
+﻿@model UserManagement.Models.RegistrationViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="registration-module">
+    <h2>Register</h2>
+    <div>
+        @{
+            if (TempData["ErrorMessage"] != null)
+            {
+                <p class='text-error'>@TempData["ErrorMessage"]</p>
+            }
+            if (TempData["SuccessMessage"] != null)
+            {
+                <p class='text-success'>@TempData["SuccessMessage"]</p>
+            }
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <div>
+                @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.MiddleName, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.MiddleName, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.MiddleName)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.LastName, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.EmailAddress, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.EmailAddress, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.EmailAddress)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.MobileNumber, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.MobileNumber, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.MobileNumber)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                @Html.PasswordFor(model => model.Password, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label" })
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Address, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.Address, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+            <div class="btn-control">
+                <input type="submit" class="btn-success" name="command" value="Register" />
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

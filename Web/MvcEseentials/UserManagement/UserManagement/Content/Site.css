@@ -1,0 +1,144 @@
+﻿html, head, body, div, header, footer, section, aside, p, ul, h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Californian FB';
+    font-size: .9em;
+}
+
+#main-page {
+    background-color: #808080;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.footer-content {
+    background-color: #000000;
+    color: #fff; 
+    text-align: center;
+    padding: 0 10px;
+}
+
+.content-page {
+    background-color: #fbfafa;
+    min-height: 200px;
+    padding: 50px 20px;
+}
+
+.nav {
+    display: block;
+}
+
+    .nav.navbar-nav {
+        background-color: rgb(0,0,0);
+    }
+
+        .nav.navbar-nav > ul > li {
+            display: inline;
+        }
+
+            .nav.navbar-nav > ul > li > a {
+                text-decoration: none;
+                color: #808080;
+                font-size: 1em;
+                padding: 1px 5px;
+            }
+
+                .nav.navbar-nav > ul > li > a:hover {
+                    text-decoration: none;
+                    color: #efefef;
+                    font-size: 1em;
+                    border-bottom: 2px solid red;
+                }
+
+.footer-text {
+    padding: 5px 0;
+    font-size: .7em;
+}
+
+.form-control {
+    background-color: green;
+    padding: 1px;
+    color: #fff;
+}
+
+.control-label {
+    display: inline-block;
+    padding: 10px;
+    color: #000000;
+    font-size: 1.1em;
+    width: 25%;
+}
+
+.btn-success {
+    background-color: #17a541;
+    border: none;
+    color: #fbfafa;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.control {
+    border: 1px solid #808080;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+    .control:focus {
+        border: 1px solid #808080;
+    }
+
+.text-error {
+    font-size: .9em;
+    color: red;
+}
+
+.text-success {
+    font-size: .9em;
+    color: green;
+}
+
+.registration-module {
+    margin: 0 auto;
+    width: 600px;
+}
+
+.btn-control {
+    margin: 0 auto;
+    width: 100px;
+}
+.grid{
+    width:100%;
+    border:1px solid #000;
+    
+    border-collapse:collapse;
+}
+.grid > thead > tr{
+    background-color:#808080;
+    color:#efefef;
+    
+}
+.grid > thead > tr >td{    
+    padding:5px;
+    font-size:1.2em;
+    font-family:sans-serif;
+    text-align:center;
+    border-bottom:1px solid #000000;
+}
+.grid > tbody > tr >td{
+    padding:5px 0;
+    font-size:1.1em;
+    color:#0d0101;
+    text-align:center;
+}
+.btn{
+    display:inline-block;
+    border-radius:1px;
+    text-decoration:none;
+    padding:5px;
+    background-color:#17a541;
+    color:#efefef;
+    font-family:Arial;
+}

@@ -1,0 +1,42 @@
+﻿@model UserManagement.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="registration-module">
+    <h2>Login</h2>
+    <div>
+        @{
+            if (TempData["ErrorMessage"] != null)
+            {
+                <p class='text-error'>@TempData["ErrorMessage"]</p>
+            }
+            if (TempData["SuccessMessage"] != null)
+            {
+                <p class='text-success'>@TempData["SuccessMessage"]</p>
+            }
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <div>
+                @Html.LabelFor(model => model.UserEmail, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.UserEmail, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.UserEmail)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                @Html.PasswordFor(model => model.Password, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+            
+            <div class="btn-control">
+                <input type="submit" class="btn-success" name="command" value="Login" />
+
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

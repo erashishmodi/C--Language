@@ -1,0 +1,31 @@
+﻿@model IEnumerable<UserManagement.UserMaster>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table class="grid">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Mobile</td>
+            <td>Role</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserFirstName @user.UserLastName</td>
+                <td>@user.UserEmail</td>
+                <td>@user.UserMobile</td>
+                <td>@user.RoleMaster.RoleName</td>
+                <td>@Html.ActionLink("Manage", "ManageModules", new { userId = user.UserId }, new { @class = "btn" })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

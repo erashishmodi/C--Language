@@ -1,0 +1,46 @@
+﻿@model UserManagement.Areas.Manager.Models.ProductModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Manager/Views/Shared/_Layout.cshtml";
+}
+
+<div class="registration-module">
+    <h2>Product</h2>
+    <div>
+        @{
+            if (TempData["ErrorMessage"] != null)
+            {
+                <p class='text-error'>@TempData["ErrorMessage"]</p>
+            }
+            if (TempData["SuccessMessage"] != null)
+            {
+                <p class='text-success'>@TempData["SuccessMessage"]</p>
+            }
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <div>
+                @Html.LabelFor(model => model.CategoryId, new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.CategoryId,UserManagement.Areas.Manager.Models.CategoryModel.GetCategoryDropdownList,"--select--", new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.CategoryId)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.ProductName, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.ProductName, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.ProductName)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.ProductDescription, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.ProductDescription, new { @class = "control" })
+                @Html.ValidationMessageFor(model => model.ProductDescription)
+            </div>
+            <div class="btn-control">
+                <input type="submit" class="btn-success" name="command" value="Create" />
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>                                  

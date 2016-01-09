@@ -1,0 +1,45 @@
+﻿@model UserManagement.Areas.Admin.Models.ManageModuleModel
+
+@{
+    ViewBag.Title = "ManageModules";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    var UserModules = ViewBag.UserModules as List<int>;
+}
+
+<h2>ManageModules</h2>
+<div class="registration-module">
+    <h2>@ViewBag.UserName</h2>
+    <div>
+        @{
+            if (TempData["ErrorMessage"] != null)
+            {
+                <p class='text-error'>@TempData["ErrorMessage"]</p>
+            }
+            if (TempData["SuccessMessage"] != null)
+            {
+                <p class='text-success'>@TempData["SuccessMessage"]</p>
+            }
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            
+            <div>
+                @Html.HiddenFor(model => model.UserId)
+            </div>
+            foreach (var module in ViewBag.ModuleList as List<UserManagement.Areas.Admin.Models.KeyValueModel>)
+            {
+                <div>
+                    @Html.Label(module.Value, new { @class = "control-label" })
+                    <input type="checkbox" name="Modules" value="@module.Key" @(UserModules.Contains(module.Key)?"checked":"") />
+                </div>
+            }
+            <div class="btn-control">
+                <input type="submit" class="btn-success" name="command" value="Save" />
+            </div>
+        }
+    </div>
+</div>
